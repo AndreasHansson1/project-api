@@ -92,6 +92,15 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $allTodos]);
     });
 
+
+
+    // GET ALL USERS -- LOCALHOST:3000/API/USERS
+    $app->get('/users', function ($request, $response, $args) {
+        $allUsers = $this->users->getAll();
+        return $response->withJson(['data' => $allUsers]);
+    });
+        
+
     // GET http://localhost:XXXX/api/todos/5
     $app->get('/todos/{id}', function ($request, $response, $args) {
         /**
