@@ -115,6 +115,13 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $singleTodo]);
     });
 
+    // GET SINGLE USER
+    $app->get('/users/{userID}', function ($request, $response, $args) {
+        $userID = $args['userID'];
+        $singleUser = $this->users->getOne($userID);
+        return $response->withJson(['data' => $singleUser]);
+    });
+
     // POST http://localhost:XXXX/api/todos
     $app->post('/todos', function ($request, $response, $args) {
         /**

@@ -27,10 +27,10 @@ class UserController
         return $getAll->fetchAll();
     }
 
-    public function getOne($id)
+    public function getOne($userID)
     {
-        $getOne = $this->db->prepare('SELECT * FROM users WHERE id = :id');
-        $getOne->execute([':id' => $id]);
+        $getOne = $this->db->prepare('SELECT * FROM users WHERE userID = :userID');
+        $getOne->execute([':userID' => $userID]);
         return $getOne->fetch();
     }
 
