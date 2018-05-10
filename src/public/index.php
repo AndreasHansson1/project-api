@@ -94,10 +94,16 @@ $app->group('/api', function () use ($app) {
 
 
 
-    // GET ALL USERS -- LOCALHOST:3000/API/USERS
+    // GET ALL USERS -- localhost:3000/api/users
     $app->get('/users', function ($request, $response, $args) {
         $allUsers = $this->users->getAll();
         return $response->withJson(['data' => $allUsers]);
+    });
+
+    // GET ALL ENTRIES -- localhost:3000/api/entries
+    $app->get('/entries', function ($request, $response, $args) {
+        $allEntries = $this->entries->getAll();
+        return $response->withJson(['data' => $allEntries]);
     });
         
 

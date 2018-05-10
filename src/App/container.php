@@ -3,8 +3,9 @@
 /**
  * We rename or make a shortcut to the TodoController
  */
-// use \App\Controllers\TodoController as TodoController;
+use \App\Controllers\TodoController as TodoController;
 use \App\Controllers\UserController as UserController;
+use \App\Controllers\EntryController as EntryController;
 
 require_once 'ConfigHandler.php';
 
@@ -70,14 +71,19 @@ $container['view'] = function ($container) {
  * $c always refers to the whole container. So calling $c->get('db') is the same
  * as calling $this->get('db') in our routes in index.php
  */
-// $container['todos'] = function ($c) {
-//     $todosController = new TodoController($c->get('db'));
-//     return $todosController;
-// };
+$container['todos'] = function ($c) {
+    $todosController = new TodoController($c->get('db'));
+    return $todosController;
+};
 
 $container['users'] = function ($c) {
     $usersController = new UserController($c->get('db'));
     return $usersController;
+};
+
+$container['entries'] = function ($c) {
+    $entriesController = new EntryController($c->get('db'));
+    return $entriesController;
 };
 
 return $container;
