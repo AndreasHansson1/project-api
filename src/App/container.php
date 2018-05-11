@@ -3,9 +3,9 @@
 /**
  * We rename or make a shortcut to the TodoController
  */
-use \App\Controllers\TodoController as TodoController;
-use \App\Controllers\UserController as UserController;
-use \App\Controllers\EntryController as EntryController;
+use \App\Controllers\TodoController   as TodoController;
+use \App\Controllers\UserController   as UserController;
+use \App\Controllers\EntryController  as EntryController;
 
 require_once 'ConfigHandler.php';
 
