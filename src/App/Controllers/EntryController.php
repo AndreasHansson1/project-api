@@ -65,4 +65,28 @@ class EntryController
           'content'   => $entry['content']
         ];
     }
+
+    // Get the 20:th latest entries
+    public function getTwenty()
+    {
+        $getTwenty = $this->db->prepare (
+           'SELECT * FROM entries  
+            ORDER BY entryID DESC
+            LIMIT 20
+           ');
+        $getAll->execute();
+        return $getAll->fetchAll();
+    }
+
+    // Delete entry
+    public function deleteEntry($entryID)
+    {
+        $deleteEntry = $this->db->prepare('DELETE FROM entries WHERE entryID = :entryID');
+        $deleteEntry->execute([':entryID' => $entryID]);
+    }
+
+
+
+    
+
 }

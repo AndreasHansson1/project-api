@@ -160,6 +160,18 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $newEntry]);
     });
 
+      // GET 20 LATEST ENTRIES
+    $app->get('/twenty', function ($request, $response, $args) {
+        $twentyEntries = $this->entries->getAll();
+        return $response->withJson(['data' => $twentyEntries]);
+    });
+
+    // DELETE ENTRY
+    $app->get('/delete/{entryID}', function ($request, $response, $args) {
+        $entryID = $args['entryID'];
+        $this->entries->delete($entryID);
+    });
+
 });
 
 $app->run();
