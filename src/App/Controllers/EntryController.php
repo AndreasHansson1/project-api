@@ -27,26 +27,32 @@ class EntryController
         return $getAll->fetchAll();
     }
 
-    public function getOne($userID)
+    public function getOne($entryID)
     {
-        $getOne = $this->db->prepare('SELECT * FROM users WHERE userID = :userID');
-        $getOne->execute([':userID' => $userID]);
+        $getOne = $this->db->prepare('SELECT * FROM entries WHERE entryID = :entryID');
+        $getOne->execute([':entryID' => $entryID]);
         return $getOne->fetch();
     }
 
-    public function add($todo)
+    public function add($entry)
     {
         /**
          * Default 'completed' is false so we only need to insert the 'content'
          */
-        $addOne = $this->db->prepare(
-            'INSERT INTO todos (content) VALUES (:content)'
+        $addEntry = $this->db->prepare(
+            'INSERT INTO entries 
+            (title, content, userID)
+            VALUES (:title, :content, :userID)'
         );
 
         /**
          * Insert the value from the parameter into the database
          */
-        $addOne->execute([':content'  => $todo['content']]);
+        $addEntry->execute([
+            ':title'   => $_POST['title'],
+            ':content' => $_POST['content'],
+            ':userID'  => $_POST['userID']
+            ]);
 
         /**
          * A INSERT INTO does not return the created object. If we want to return it to the user
@@ -54,9 +60,9 @@ class EntryController
          * We can always get the last inserted row in a database by calling 'lastInsertId()'-function
          */
         return [
-          'id'          => (int)$this->db->lastInsertId(),
-          'content'     => $todo['content'],
-          'completed'   => false
+          'userID'    => (int)$this->db->lastInsertId(),
+          'title'     => $entry['title'],
+          'content'   => $entry['content']
         ];
     }
 }

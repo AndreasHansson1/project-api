@@ -6,15 +6,6 @@ class UserController
 {
     private $db;
 
-    /**
-     * Dependeny Injection (DI): http://www.phptherightway.com/#dependency_injection
-     * If this class relies on a database-connection via PDO we inject that connection
-     * into the class at start. If we do this TodoController will be able to easily
-     * reference the PDO with '$this->db' in ALL functions INSIDE the class
-     * This class is later being injected into our container inside of 'App/container.php'
-     * This results in we being able to call '$this->get('Todos')' to call this class
-     * inside of our routes.
-     */
     public function __construct(\PDO $pdo)
     {
         $this->db = $pdo;

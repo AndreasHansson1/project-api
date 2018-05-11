@@ -128,6 +128,14 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $singleUser]);
     });
 
+     // GET SINGLE ENTRY
+    $app->get('/entries/{entryID}', function ($request, $response, $args) {
+        $entryID = $args['entryID'];
+        $singleEntry = $this->entries->getOne($entryID);
+        return $response->withJson(['data' => $singleEntry]);
+    });
+
+
     // POST http://localhost:XXXX/api/todos
     $app->post('/todos', function ($request, $response, $args) {
         /**
@@ -139,6 +147,19 @@ $app->group('/api', function () use ($app) {
         $newTodo = $this->todos->add($body);
         return $response->withJson(['data' => $newTodo]);
     });
+
+    // POST http://localhost:XXXX/api/entries
+    $app->post('/entries', function ($request, $response, $args) {
+        /**
+         * Everything sent in 'body' when doing a POST-request can be
+         * extracted with 'getParsedBody()' from the request-object
+         * https://www.slimframework.com/docs/v3/objects/request.html#the-request-body
+         */
+        $body = $request->getParsedBody();
+        $newEntry = $this->entries->add($body);
+        return $response->withJson(['data' => $newEntry]);
+    });
+
 });
 
 $app->run();
