@@ -160,16 +160,37 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $newEntry]);
     });
 
-      // GET 20 LATEST ENTRIES
+    // GET 20 LATEST ENTRIES
     $app->get('/twenty', function ($request, $response, $args) {
-        $twentyEntries = $this->entries->getAll();
+        $twentyEntries = $this->entries->getTwenty();
         return $response->withJson(['data' => $twentyEntries]);
     });
 
     // DELETE ENTRY
-    $app->get('/delete/{entryID}', function ($request, $response, $args) {
+    $app->delete('/entries/{entryID}', function ($request, $response, $args) {
         $entryID = $args['entryID'];
-        $this->entries->delete($entryID);
+        $this->entries->deleteEntry($entryID);
+        echo 'Deleted Entry';
+    });
+
+    // GET 20 LATEST COMMENTS
+    $app->get('/comments', function ($request, $response, $args) {
+        $twentyComments = $this->comments->getTwenty();
+        return $response->withJson(['data' => $twentyComments]);
+    });
+
+     // GET SINGLE COMMENT
+    $app->get('/comments/{commentID}', function ($request, $response, $args) {
+        $commentID = $args['commentID'];
+        $singleComment = $this->comments->getOne($commentID);
+        return $response->withJson(['data' => $singleComment]);
+    });
+
+     // DELETE COMMENT
+    $app->delete('/comments/{entryID}', function ($request, $response, $args) {
+        $commentID = $args['commentID'];
+        $this->comments->deleteComment($commentID);
+        echo 'Deleted Comment';
     });
 
 });
