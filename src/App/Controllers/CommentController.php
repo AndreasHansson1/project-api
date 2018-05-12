@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class EntryController
+class CommentController
 {
     private $db;
 
@@ -11,18 +11,31 @@ class EntryController
         $this->db = $pdo;
     }
 
-    public function getAll()
+     // Get the 20 latest comments
+    public function getTwenty()
     {
-        $getAll = $this->db->prepare('SELECT * FROM entries');
-        $getAll->execute();
-        return $getAll->fetchAll();
+        $getTwenty = $this->db->prepare (
+           'SELECT * FROM comments  
+            ORDER BY commentID DESC
+            LIMIT 20
+           ');
+        $getTwenty->execute();
+        return $getTwenty->fetchAll();
     }
 
-    public function getOne($entryID)
+    // Get one comment
+    public function getOne($commentID)
     {
-        $getOne = $this->db->prepare('SELECT * FROM entries WHERE entryID = :entryID');
-        $getOne->execute([':entryID' => $entryID]);
+        $getOne = $this->db->prepare('SELECT * FROM comments WHERE commentID = :commentID');
+        $getOne->execute([':commentID' => $commentID]);
         return $getOne->fetch();
+    }
+
+     // Delete comment
+    public function deleteComment($commentID)
+    {
+        $deleteComment = $this->db->prepare('DELETE FROM comments WHERE commentID = :commentID');
+        $deleteComment->execute([':commentID' => $commentID]);
     }
 
     public function add($entry)
@@ -55,24 +68,7 @@ class EntryController
         ];
     }
 
-    // Get the 20 latest entries
-    public function getTwenty()
-    {
-        $getTwenty = $this->db->prepare (
-           'SELECT * FROM entries  
-            ORDER BY entryID DESC
-            LIMIT 20
-           ');
-        $getTwenty->execute();
-        return $getTwenty->fetchAll();
-    }
-
-    // Delete entry
-    public function deleteEntry($entryID)
-    {
-        $deleteEntry = $this->db->prepare('DELETE FROM entries WHERE entryID = :entryID');
-        $deleteEntry->execute([':entryID' => $entryID]);
-    }
+   
 
 
 
