@@ -61,8 +61,8 @@ class EntryController
         $getTwenty = $this->db->prepare (
            'SELECT * FROM entries  
             ORDER BY entryID DESC
-            LIMIT 20
-           ');
+            LIMIT 20');
+
         $getTwenty->execute();
         return $getTwenty->fetchAll();
     }
@@ -72,6 +72,20 @@ class EntryController
     {
         $deleteEntry = $this->db->prepare('DELETE FROM entries WHERE entryID = :entryID');
         $deleteEntry->execute([':entryID' => $entryID]);
+    }
+
+    // Search for entry
+     public function searchEntry()
+     {
+        $search = $this->db->prepare(
+           'SELECT * FROM entries 
+            WHERE UPPER(title) 
+            LIKE :query ORDER BY title');
+
+        $query = "%".$args['query']."%";
+        $search->bindParam("query", $query);
+        $search->execute();
+        return $search->fetchAll();
     }
 
 
