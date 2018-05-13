@@ -148,7 +148,7 @@ $app->group('/api', function () use ($app) {
         return $response->withJson(['data' => $newTodo]);
     });
 
-    // POST http://localhost:XXXX/api/entries
+    // POST ENTRY
     $app->post('/entries', function ($request, $response, $args) {
         /**
          * Everything sent in 'body' when doing a POST-request can be
@@ -171,6 +171,12 @@ $app->group('/api', function () use ($app) {
         $entryID = $args['entryID'];
         $this->entries->deleteEntry($entryID);
         echo 'Deleted Entry';
+    });
+
+    // SEARCH FOR ENTRY
+    $app->get('/entries/search/[{query}]', function ($request, $response, $args) {
+        $searchEntry = $this->entries->searchEntry();
+        return $response->withJson(['data' => $searchEntry]);
     });
 
     // GET 20 LATEST COMMENTS
