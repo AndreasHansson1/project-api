@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controllers;
+session_start();
 
 class EntryController
 {
@@ -25,29 +25,24 @@ class EntryController
         return $getOne->fetch();
     }
 
+    // Add new entry. Use session later to use the right userID I guess?
     public function add($entry)
     {
-        
+        // $userID = $_SESSION['userID'];
+        $userID = 1;
+
         $addEntry = $this->db->prepare(
             'INSERT INTO entries 
-            (title, content, userID)
-            VALUES (:title, :content, :userID)'
+            (title, content, createdBy)
+            VALUES (:title, :content, :createdBy)'
         );
 
-        /**
-         * Insert the value from the parameter into the database
-         */
         $addEntry->execute([
             ':title'   => $_POST['title'],
             ':content' => $_POST['content'],
-            ':userID'  => $_POST['userID']
+            ':createdBy'  =>  $userID
             ]);
 
-        /**
-         * A INSERT INTO does not return the created object. If we want to return it to the user
-         * that has posted the todo we must build it ourself or fetch it after we have inserted it
-         * We can always get the last inserted row in a database by calling 'lastInsertId()'-function
-         */
         return [
           'userID'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
