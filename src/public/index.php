@@ -209,5 +209,6 @@ $app->group('/api', function () use ($app) {
     });
 
 });
+// Add later, you need to bo logged in to see all posts: ->add($auth)
 
 $app->run();
