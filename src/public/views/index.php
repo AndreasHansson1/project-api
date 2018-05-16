@@ -10,7 +10,7 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (isset($_SESSION["loggedIn"])): ?>
+<?php if (!isset($_SESSION["loggedIn"])): ?>
 <div class="container">
     <br>
     <h2>Sign Up</h2>
