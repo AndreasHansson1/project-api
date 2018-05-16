@@ -97,13 +97,13 @@ $app->group('/api', function () use ($app) {
     // GET ALL USERS -- localhost:3000/api/users
     $app->get('/users', function ($request, $response, $args) {
         $allUsers = $this->users->getAll();
-        return $response->withJson(['data' => $allUsers]);
+        return $response->withJson($allUsers);
     });
 
     // GET ALL ENTRIES -- localhost:3000/api/entries
     $app->get('/entries', function ($request, $response, $args) {
         $allEntries = $this->entries->getAll();
-        return $response->withJson(['data' => $allEntries]);
+        return $response->withJson($allEntries);
     });
         
 
@@ -125,14 +125,14 @@ $app->group('/api', function () use ($app) {
     $app->get('/users/{userID}', function ($request, $response, $args) {
         $userID = $args['userID'];
         $singleUser = $this->users->getOne($userID);
-        return $response->withJson(['data' => $singleUser]);
+        return $response->withJson($singleUser);
     });
 
      // GET SINGLE ENTRY
     $app->get('/entries/{entryID}', function ($request, $response, $args) {
         $entryID = $args['entryID'];
         $singleEntry = $this->entries->getOne($entryID);
-        return $response->withJson(['data' => $singleEntry]);
+        return $response->withJson($singleEntry);
     });
 
 
@@ -157,13 +157,13 @@ $app->group('/api', function () use ($app) {
          */
         $body = $request->getParsedBody();
         $newEntry = $this->entries->add($body);
-        return $response->withJson(['data' => $newEntry]);
+        return $response->withJson($newEntry);
     });
 
     // GET 20 LATEST ENTRIES
     $app->get('/twenty', function ($request, $response, $args) {
         $twentyEntries = $this->entries->getTwenty();
-        return $response->withJson(['data' => $twentyEntries]);
+        return $response->withJson($twentyEntries);
     });
 
     // DELETE ENTRY
@@ -176,27 +176,36 @@ $app->group('/api', function () use ($app) {
     // SEARCH FOR ENTRY
     $app->get('/entries/search/[{query}]', function ($request, $response, $args) {
         $searchEntry = $this->entries->searchEntry();
-        return $response->withJson(['data' => $searchEntry]);
+        return $response->withJson($searchEntry);
     });
 
     // GET 20 LATEST COMMENTS
     $app->get('/comments', function ($request, $response, $args) {
         $twentyComments = $this->comments->getTwenty();
-        return $response->withJson(['data' => $twentyComments]);
+        return $response->withJson($twentyComments);
     });
 
      // GET SINGLE COMMENT
     $app->get('/comments/{commentID}', function ($request, $response, $args) {
         $commentID = $args['commentID'];
         $singleComment = $this->comments->getOne($commentID);
-        return $response->withJson(['data' => $singleComment]);
+        return $response->withJson($singleComment);
     });
 
      // DELETE COMMENT
-    $app->delete('/comments/{entryID}', function ($request, $response, $args) {
+    $app->delete('/comments/{commentID}', function ($request, $response, $args) {
         $commentID = $args['commentID'];
         $this->comments->deleteComment($commentID);
         echo 'Deleted Comment';
+    });
+
+    // EDIT ENTRY
+    $app->patch('/entries/edit/{entryID}', function ($request, $response, $args) {
+        $entryID = $args['entryID'];
+        $body = $request->getParsedBody();
+        $editEntry = $this->entries->editEntry($body);
+        return $response->withJson($editEntry);
+        echo 'Updated Entry!';
     });
 
 });
