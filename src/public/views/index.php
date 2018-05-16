@@ -10,7 +10,7 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (!isset($_SESSION["loggedIn"])): ?>
+<?php if (isset($_SESSION["loggedIn"])): ?>
 <div class="container">
     <br>
     <h2>Sign Up</h2>
@@ -53,8 +53,15 @@
       </div>
     </div>
 
-    <h1>Entries</h1>
-    <div id="output"></div>
+    
+    <div id="wrapper">
+        <div id="container"></div>
+        <div id="container1"></div>
+        <div id="container2"></div>
+        <div id="container3"></div>
+        <div id="container4"></div>
+        <div id="container5"></div>
+    </div>
 <?php endif; ?>
   
   <script src="scripts/main.js"></script>
