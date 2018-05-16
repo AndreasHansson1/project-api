@@ -29,7 +29,6 @@ class EntryController
     public function add($entry)
     {
         // $userID = $_SESSION['userID'];
-        $userID = 1;
 
         $addEntry = $this->db->prepare(
             'INSERT INTO entries 
@@ -38,9 +37,9 @@ class EntryController
         );
 
         $addEntry->execute([
-            ':title'   => $_POST['title'],
-            ':content' => $_POST['content'],
-            ':createdBy'  =>  $userID
+            ':title'        => $_POST['title'],
+            ':content'      => $_POST['content'],
+            ':createdBy'    => $_GET['userID']
             ]);
 
         return [
@@ -81,6 +80,33 @@ class EntryController
         $search->bindParam("query", $query);
         $search->execute();
         return $search->fetchAll();
+    }
+
+    // Edit Entry
+    public function editEntry($edit)
+    {
+
+        $editEntry = $this->db->prepare(
+            'UPDATE entries 
+       SET entryID     = :entryID,
+             title     = :title, 
+             content   = :content  
+       WHERE entryID   = :entryID'
+        );
+
+        $editEntry->execute([
+            // ':entryID' => $_GET['entryID'],
+            ':entryID' => $edit['entryID'],
+            ':title'   => $edit['title'],
+            ':content' => $edit['content']
+            ]);
+
+        // return [
+        //   'entryID'   => (int)$this->db->lastInsertId(),
+        //   'title'     => $edit['title'],
+        //   'content'   => $edit['content']
+        // ];
+
     }
 
 
