@@ -108,9 +108,4 @@ class EntryController
         // ];
 
     }
-
-
-
-    
-
 }
