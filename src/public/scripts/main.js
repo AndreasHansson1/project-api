@@ -35,7 +35,11 @@ function getAllUsers() {
 
     .then(res => res.json())
     .then(users => {
-      console.log(users);
+      // Create H1 headertext
+      let header = document.createElement('h1');
+      let h = document.createTextNode('Users');
+      header.appendChild(h);
+      document.getElementById('container').appendChild(header);
       for (var key in users) {
         let username = users[key].username;
         let userID = users[key].userID;
@@ -53,14 +57,17 @@ function getAllUsers() {
       }
     });
 }
-getAllUsers();
+// getAllUsers();
 
 function getAllEntries() {
   fetch('api/entries')
 
     .then(res => res.json())
     .then(entries => {
-      
+      let header = document.createElement('h1');
+      let h = document.createTextNode('Entries');
+      header.appendChild(h);
+      document.getElementById('container1').appendChild(header);
       for (var key in entries) {
         let title = entries[key].title;
         let content = entries[key].content;
@@ -87,15 +94,18 @@ function getAllEntries() {
       }
     });
 }
-getAllEntries();
+// getAllEntries();
 
 
 function getAllComments() {
   fetch('api/comments')
-
     .then(res => res.json())
     .then(entries => {
-      console.log(entries);
+      // Create H1 headertext
+      let header = document.createElement('h1');
+      let h = document.createTextNode('Comments');
+      header.appendChild(h);
+      document.getElementById('container2').appendChild(header);
       for (var key in entries) {
         let content = entries[key].content;
         let createdBy = entries[key].createdBy;
@@ -117,5 +127,5 @@ function getAllComments() {
     }
   });
 }
-getAllComments();
+// getAllComments();
 
