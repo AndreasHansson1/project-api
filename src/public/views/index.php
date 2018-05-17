@@ -55,9 +55,9 @@
 
     
     <div id="wrapper">
-        <div id="container"></div>
-        <div id="container1"></div>
-        <div id="container2"></div>
+        <div id="container"><h1>Users</h1></div><br>
+        <div id="container1"><h1>Entries</h1></div><br>
+        <div id="container2"><h1>Comments</h1></div><br>
         <div id="container3"></div>
         <div id="container4"></div>
         <div id="container5"></div>
