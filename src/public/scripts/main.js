@@ -129,3 +129,56 @@ function getAllComments() {
 }
 // getAllComments();
 
+function getOneUser() {
+  var ID = document.getElementById('searchUserID').value;
+  fetch('api/users/' + ID)
+    .then(res => res.json())
+    .then(users => {
+          let p1 = document.createElement('p');
+          let p2 = document.createElement('p');
+          let t1 = document.createTextNode('Username: ' + users.username);
+          let t2 = document.createTextNode('User ID: ' + users.userID);
+          p1.appendChild(t1);
+          p2.appendChild(t2);
+          document.getElementById('container3').appendChild(p1);
+          document.getElementById('container3').appendChild(p2);
+    });
+}
+
+function getOneComment() {
+  var ID = document.getElementById('searchCommentID').value;
+  fetch('api/comments/' + ID)
+    .then(res => res.json())
+    .then(comments => {
+      let p1 = document.createElement('p');
+      let p2 = document.createElement('p');
+      let t1 = document.createTextNode('Content: ' + comments.content);
+      let t2 = document.createTextNode('Created By: ' + comments.createdBy);
+      p1.appendChild(t1);
+      p2.appendChild(t2);
+      document.getElementById('container4').appendChild(p1);
+      document.getElementById('container4').appendChild(p2);
+    });
+}
+
+function getUserID(){
+var number = document.getElementById('searchUserID');
+var ID = number.value;
+return ID;
+}
+
+function getEntryID() {
+  var number = document.getElementById('searchEntryID');
+  var ID = number.value;
+  alert(ID);
+}
+
+function getCommentID() {
+  var number = document.getElementById('searchCommentID');
+  var ID = number.value;
+  alert(ID);
+}
+
+
+
+

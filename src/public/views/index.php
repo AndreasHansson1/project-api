@@ -80,13 +80,25 @@
       </div>
     </div>
 
+<form name ="searchUser" id="searchUser" action="#">
+    Search User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
+    <input type="button" name="submit" value="Search"
+    onclick="getOneUser();" />
+</form>
 
-  
+<form name ="searchEntry" id="searchEntry" action="#">
+    Search Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
+    <input type="button" name="submit" value="Search"
+    onclick="getEntryID();" />
+</form>
 
+<form name ="searchComment" id="searchComment" action="#">
+    Search Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
+    <input type="button" name="submit" value="Search"
+    onclick="getOneComment();" />
+</form>
 
-  
-    
-    <div id="wrapper">
+<div id="wrapper">
         <div id="container"></div>
         <div id="container1"></div>
         <div id="container2"></div>
