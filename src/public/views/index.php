@@ -71,8 +71,9 @@
 
     <div class="container">
     <br>
-    <h1>New Entry</h1>
+    <h1>Project API</h1>
       <div class="form-group">
+      <h2>New Entry</h2>
           <input type="text" id="newTitle" placeholder="Title">
           <form action="" id="newContent">
           <textarea name="content" placeholder="Content"></textarea>
@@ -80,40 +81,40 @@
         </form>
       </div>
     </div>
-<div class="search_wrapper">
 
+<div class="container">
   <form name ="getUsers" id="getUsers" action="#">
-      <input type="button" name="submit" value="Get All Users"
+      <input type="button" name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />
   </form>
 
   <form name ="getEntries" id="getEntries" action="#">
       Get Entries: <input type="text" name="name" id="entryQuantity" placeholder=" Quantity" />
-      <input type="button" name="submit" value="Get Entries"
+      <input type="button" name="submit" value="Get Entries" class="btn btn-primary btn-sm"
       onclick="getAllEntries();" />
   </form>
 
   <form name ="getCommants" id="getComments" action="#">
       Get Comments: <input type="text" name="name" id="commentQuantity" placeholder=" Quantity" />
-      <input type="button" name="submit" value="Get Comments"
+      <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="getAllComments();" />
   </form>
 
   <form name ="searchUser" id="searchUser" action="#">
       Single User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
+      <input type="button" name="submit" value="Search" class="btn btn-info btn-sm"
       onclick="getOneUser();" />
   </form>
 
   <form name ="searchEntry" id="searchEntry" action="#">
       Single Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
+      <input type="button" name="submit" value="Search" class="btn btn-info btn-sm"
       onclick="getOneEntry();" />
   </form>
 
   <form name ="searchComment" id="searchComment" action="#">
       Single Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
+      <input type="button" name="submit" value="Search" class="btn btn-info btn-sm"
       onclick="getOneComment();" />
   </form>
 </div>
