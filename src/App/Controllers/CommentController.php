@@ -12,7 +12,7 @@ class CommentController
     }
 
      // Get the 20 latest comments
-    public function getTwenty()
+    public function getTwenty($limit)
     {
         $getTwenty = $this->db->prepare (
            'SELECT * FROM comments  
