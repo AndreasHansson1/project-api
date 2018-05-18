@@ -65,24 +65,24 @@ function getAllEntries() {
           document.getElementById('container1').appendChild(p2);
           document.getElementById('container1').appendChild(p3);
           // Create Edit Button
-          let btn = document.createElement('button');
-          btn.class = "btn"; // Set a class name
-          btn.setAttribute("onclick", editEntry);
-          btn.onclick = editEntry; // Calls function to edit entry
+          let entryEditBtn = document.createElement('button');
+          entryEditBtn.class = "btn"; // Set a class name
+          entryEditBtn.setAttribute("onclick", editEntry);
+          entryEditBtn.onclick = editEntry; // Calls function to edit entry
           document.getElementsByClassName("btn").onclick = editEntry;
           let t = document.createTextNode('Edit'); 
-          btn.appendChild(t); 
-          document.getElementById('container1').appendChild(btn); 
+          entryEditBtn.appendChild(t); 
+          document.getElementById('container1').appendChild(entryEditBtn); 
           // Create Delete Button
-          let btn1 = document.createElement('button');
-          btn1.class = "btn1"; // Set a class name
-          btn1.id = entries[key].entryID;
-          btn1.setAttribute("onclick", deleteEntry);
-          btn1.onclick = deleteEntry; // Calls function to delete entry
+          let entryDeleteBtn = document.createElement('button');
+          entryDeleteBtn.class = "btn1"; // Set a class name
+          entryDeleteBtn.id = entries[key].entryID;
+          entryDeleteBtn.setAttribute("onclick", deleteEntry);
+          entryDeleteBtn.onclick = deleteEntry; // Calls function to delete entry
           document.getElementsByClassName("btn1").onclick = deleteEntry;
           let b = document.createTextNode('Delete');
-          btn1.appendChild(b);
-          document.getElementById('container1').appendChild(btn1);
+          entryDeleteBtn.appendChild(b);
+          document.getElementById('container1').appendChild(entryDeleteBtn);
         }
       }
     });
@@ -112,21 +112,16 @@ function getAllComments() {
           p2.appendChild(t2); 
           document.getElementById('container2').appendChild(p1);
           document.getElementById('container2').appendChild(p2);
-          // Create Edit Button
-          let btn = document.createElement('button');
-          let t = document.createTextNode('Edit'); 
           
-          btn.appendChild(t); 
-          document.getElementById('container2').appendChild(btn);
           // Create Delete Button
-          let btn2 = document.createElement('button');
-          btn2.class = "btn2"; // Set a class name
-          btn2.setAttribute("onclick", deleteComment);
-          btn2.onclick = deleteComment; // Calls function to delete entry
-          document.getElementsByClassName("btn1").onclick = deleteComment;
+          let commentDeleteBtn = document.createElement('button');
+          commentDeleteBtn.class = "btn2"; // Set a class name
+          commentDeleteBtn.setAttribute("onclick", deleteComment);
+          commentDeleteBtn.onclick = deleteComment; // Calls function to delete entry
+          document.getElementsByClassName("btn2").onclick = deleteComment;
           let b = document.createTextNode('Delete');
-          btn2.appendChild(b);
-          document.getElementById('container2').appendChild(btn2);
+          commentDeleteBtn.appendChild(b);
+          document.getElementById('container2').appendChild(commentDeleteBtn);
         }
     }
   });
@@ -149,6 +144,26 @@ function getOneUser() {
     });
 }
 
+function getOneEntry() {
+  var ID = document.getElementById('searchEditID').value;
+  fetch('api/entries/' + ID)
+    .then(res => res.json())
+    .then(entries => {
+      let p1 = document.createElement('p');
+      let p2 = document.createElement('p');
+      let p3 = document.createElement('p');
+      let t1 = document.createTextNode('Title: ' + entries.title);
+      let t2 = document.createTextNode('Content: ' + entries.content);
+      let t3 = document.createTextNode('Created By: ' + entries.createdBy);
+      p1.appendChild(t1);
+      p2.appendChild(t2);
+      p3.appendChild(t3);
+      document.getElementById('container4').appendChild(p1);
+      document.getElementById('container4').appendChild(p2);
+      document.getElementById('container4').appendChild(p2);
+    });
+}
+
 function getOneComment() {
   var ID = document.getElementById('searchCommentID').value;
   fetch('api/comments/' + ID)
@@ -167,8 +182,7 @@ function getOneComment() {
 
 function deleteEntry() {
   let ID = this.id;
-  alert(ID);
-  fetch('api/entries/')
+  fetch('api/entries/' + ID)
     .then(res => res.json())
     .then(
 

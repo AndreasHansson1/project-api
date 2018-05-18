@@ -186,7 +186,7 @@ $app->group('/api', function () use ($app) {
     $app->get('/comments', function ($request, $response, $args) {
         $params = $request->getQueryParams();
         $limit = (int) $params["limit"];
-        $twentyComments = $this->comments->getTwenty();
+        $twentyComments = $this->comments->getTwenty($limit);
         return $response->withJson($twentyComments);
     });
 
