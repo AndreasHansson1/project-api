@@ -6,30 +6,6 @@
 
 // main();
 
-// function getAllUsers() {
-//   fetch('api/users')
-
-//     .then(res => res.json())
-//     .then(users => {
-//       for (var key in users) {
-//       let userID = users[key].userID;
-//       let username = users[key].username; 
-//         if (users.hasOwnProperty(key)) {
-//          var output = '';
-
-//          output += '<h1>Users ' + '</h1>' +
-//            '<ul id="list">' +
-//            '<li><strong>User ID:</strong> ' + userID + '</li>' +
-//            '<li><strong>Username:</strong> ' + username + '</li>' +
-//            '</ul><br>';
-
-//          document.getElementById('container1').innerHTML = output;
-//         }
-//       }
-//     });
-// }
-// getAllUsers();
-
 function getAllUsers() {
   fetch('api/users')
 
@@ -60,7 +36,8 @@ function getAllUsers() {
 // getAllUsers();
 
 function getAllEntries() {
-  fetch('api/entries')
+  let quantity = document.getElementById('entryQuantity').value;
+  fetch('api/entries?limit=' + quantity)
 
     .then(res => res.json())
     .then(entries => {
@@ -68,7 +45,9 @@ function getAllEntries() {
       let h = document.createTextNode('Entries');
       header.appendChild(h);
       document.getElementById('container1').appendChild(header);
+
       for (var key in entries) {
+        
         let title = entries[key].title;
         let content = entries[key].content;
         let createdBy = entries[key].createdBy;
@@ -85,11 +64,25 @@ function getAllEntries() {
           document.getElementById('container1').appendChild(p1);
           document.getElementById('container1').appendChild(p2);
           document.getElementById('container1').appendChild(p3);
-          // Create Button
-          let btn = document.createElement('button'); 
+          // Create Edit Button
+          let btn = document.createElement('button');
+          btn.class = "btn"; // Set a class name
+          btn.setAttribute("onclick", editEntry);
+          btn.onclick = editEntry; // Calls function to edit entry
+          document.getElementsByClassName("btn").onclick = editEntry;
           let t = document.createTextNode('Edit'); 
           btn.appendChild(t); 
           document.getElementById('container1').appendChild(btn); 
+          // Create Delete Button
+          let btn1 = document.createElement('button');
+          btn1.class = "btn1"; // Set a class name
+          btn1.id = entries[key].entryID;
+          btn1.setAttribute("onclick", deleteEntry);
+          btn1.onclick = deleteEntry; // Calls function to delete entry
+          document.getElementsByClassName("btn1").onclick = deleteEntry;
+          let b = document.createTextNode('Delete');
+          btn1.appendChild(b);
+          document.getElementById('container1').appendChild(btn1);
         }
       }
     });
@@ -98,18 +91,19 @@ function getAllEntries() {
 
 
 function getAllComments() {
-  fetch('api/comments')
+  let quantity = document.getElementById('commentQuantity').value;
+  fetch('api/comments?limit=' + quantity)
     .then(res => res.json())
-    .then(entries => {
+    .then(comments => {
       // Create H1 headertext
       let header = document.createElement('h1');
       let h = document.createTextNode('Comments');
       header.appendChild(h);
       document.getElementById('container2').appendChild(header);
-      for (var key in entries) {
-        let content = entries[key].content;
-        let createdBy = entries[key].createdBy;
-        if (entries.hasOwnProperty(key)) {
+      for (var key in comments) {
+        let content = comments[key].content;
+        let createdBy = comments[key].createdBy;
+        if (comments.hasOwnProperty(key)) {
           let p1 = document.createElement('p');
           let p2 = document.createElement('p'); 
           let t1 = document.createTextNode('Content: ' + content);
@@ -118,11 +112,21 @@ function getAllComments() {
           p2.appendChild(t2); 
           document.getElementById('container2').appendChild(p1);
           document.getElementById('container2').appendChild(p2);
-          // Create Button
+          // Create Edit Button
           let btn = document.createElement('button');
           let t = document.createTextNode('Edit'); 
+          
           btn.appendChild(t); 
-          document.getElementById('container2').appendChild(btn); 
+          document.getElementById('container2').appendChild(btn);
+          // Create Delete Button
+          let btn2 = document.createElement('button');
+          btn2.class = "btn2"; // Set a class name
+          btn2.setAttribute("onclick", deleteComment);
+          btn2.onclick = deleteComment; // Calls function to delete entry
+          document.getElementsByClassName("btn1").onclick = deleteComment;
+          let b = document.createTextNode('Delete');
+          btn2.appendChild(b);
+          document.getElementById('container2').appendChild(btn2);
         }
     }
   });
@@ -161,22 +165,22 @@ function getOneComment() {
     });
 }
 
-function getUserID(){
-var number = document.getElementById('searchUserID');
-var ID = number.value;
-return ID;
+function deleteEntry() {
+  let ID = this.id;
+  alert(ID);
+  fetch('api/entries/')
+    .then(res => res.json())
+    .then(
+
+    );
 }
 
-function getEntryID() {
-  var number = document.getElementById('searchEntryID');
-  var ID = number.value;
-  alert(ID);
+function editEntry() {
+  alert('Yes!');
 }
 
-function getCommentID() {
-  var number = document.getElementById('searchCommentID');
-  var ID = number.value;
-  alert(ID);
+function deleteComment() {
+  alert('deleted comment!');
 }
 
 

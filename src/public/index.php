@@ -102,7 +102,10 @@ $app->group('/api', function () use ($app) {
 
     // GET ALL ENTRIES -- localhost:3000/api/entries
     $app->get('/entries', function ($request, $response, $args) {
-        $allEntries = $this->entries->getAll();
+        $params = $request->getQueryParams();
+        $limit = (int) $params["limit"];
+        $allEntries = $this->entries->getAll($limit);
+  
         return $response->withJson($allEntries);
     });
         
@@ -181,6 +184,8 @@ $app->group('/api', function () use ($app) {
 
     // GET 20 LATEST COMMENTS
     $app->get('/comments', function ($request, $response, $args) {
+        $params = $request->getQueryParams();
+        $limit = (int) $params["limit"];
         $twentyComments = $this->comments->getTwenty();
         return $response->withJson($twentyComments);
     });

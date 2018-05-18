@@ -79,33 +79,54 @@
         </form>
       </div>
     </div>
+<div class="search_wrapper">
 
-<form name ="searchUser" id="searchUser" action="#">
-    Search User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
-    <input type="button" name="submit" value="Search"
-    onclick="getOneUser();" />
-</form>
+  <form name ="getUsers" id="getUsers" action="#">
+      <input type="button" name="submit" value="Get All Users"
+      onclick="getAllUsers();" />
+  </form>
 
-<form name ="searchEntry" id="searchEntry" action="#">
-    Search Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
-    <input type="button" name="submit" value="Search"
-    onclick="getEntryID();" />
-</form>
+  <form name ="getEntries" id="getEntries" action="#">
+      Get Entries: <input type="text" name="name" id="entryQuantity" placeholder=" Quantity" />
+      <input type="button" name="submit" value="Get Entries"
+      onclick="getAllEntries();" />
+  </form>
 
-<form name ="searchComment" id="searchComment" action="#">
-    Search Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
-    <input type="button" name="submit" value="Search"
-    onclick="getOneComment();" />
-</form>
+  <form name ="getCommants" id="getComments" action="#">
+      Get Comments: <input type="text" name="name" id="commentQuantity" placeholder=" Quantity" />
+      <input type="button" name="submit" value="Get Comments"
+      onclick="getAllComments();" />
+  </form>
 
-<div id="wrapper">
-        <div id="container"></div>
-        <div id="container1"></div>
-        <div id="container2"></div>
-        <div id="container3"></div>
-        <div id="container4"></div>
-        <div id="container5"></div>
-    </div>
+  <form name ="searchUser" id="searchUser" action="#">
+      Single User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
+      <input type="button" name="submit" value="Search"
+      onclick="getOneUser();" />
+  </form>
+
+  <form name ="searchEntry" id="searchEntry" action="#">
+      Single Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
+      <input type="button" name="submit" value="Search"
+      onclick="getEntryID();" />
+  </form>
+
+  <form name ="searchComment" id="searchComment" action="#">
+      Single Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
+      <input type="button" name="submit" value="Search"
+      onclick="getOneComment();" />
+  </form>
+</div>
+<div class="wrapper">
+    <div id="container"></div>
+    <div id="container1"></div>
+    <div id="container2"></div>
+    <div id="container3"></div>
+    <div id="container4"></div>
+    <div id="container5"></div>
+    <div id="container6"></div>
+    <div id="container7"></div>
+    <div id="container8"></div>
+  </div>
 <?php endif; ?>
   
   <script src="scripts/main.js"></script>

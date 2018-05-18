@@ -11,9 +11,10 @@ class EntryController
         $this->db = $pdo;
     }
 
-    public function getAll()
+    public function getAll($limit)
     {
-        $getAll = $this->db->prepare('SELECT * FROM entries');
+        $getAll = $this->db->prepare('SELECT * FROM entries LIMIT :entriesLimit');
+        $getAll->bindParam(':entriesLimit', $limit , \PDO::PARAM_INT);
         $getAll->execute();
         return $getAll->fetchAll();
     }
@@ -69,7 +70,7 @@ class EntryController
     }
 
     // Search for entry
-     public function searchEntry()
+     public function searchEntry($search)
      {
         $search = $this->db->prepare(
            'SELECT * FROM entries 

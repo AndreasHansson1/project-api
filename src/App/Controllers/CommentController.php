@@ -17,8 +17,9 @@ class CommentController
         $getTwenty = $this->db->prepare (
            'SELECT * FROM comments  
             ORDER BY commentID DESC
-            LIMIT 20
+            LIMIT :commentsLimit
            ');
+        $getTwenty->bindParam(':commentsLimit', $limit , \PDO::PARAM_INT);
         $getTwenty->execute();
         return $getTwenty->fetchAll();
     }
