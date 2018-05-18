@@ -107,7 +107,7 @@
   <form name ="searchEntry" id="searchEntry" action="#">
       Single Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
       <input type="button" name="submit" value="Search"
-      onclick="getEntryID();" />
+      onclick="getOneEntry();" />
   </form>
 
   <form name ="searchComment" id="searchComment" action="#">
