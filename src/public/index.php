@@ -152,7 +152,7 @@ $app->group('/api', function () use ($app) {
     });
 
     // POST ENTRY
-    $app->post('/entries', function ($request, $response, $args) {
+    $app->post('/entries', function ($request, $response, $args) { 
         /**
          * Everything sent in 'body' when doing a POST-request can be
          * extracted with 'getParsedBody()' from the request-object
@@ -207,6 +207,10 @@ $app->group('/api', function () use ($app) {
     // EDIT ENTRY
     $app->patch('/entries/edit/{entryID}', function ($request, $response, $args) {
         $entryID = $args['entryID'];
+        $title = $request->getParam('title');
+        $content = $request->getParam('content'); 
+        // $createdBy = $request->getParam('createdBy');
+        // $createdAt = $request->getParam('createdAt'); 
         $body = $request->getParsedBody();
         $editEntry = $this->entries->editEntry($body);
         return $response->withJson($editEntry);

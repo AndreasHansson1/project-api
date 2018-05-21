@@ -12,7 +12,7 @@ function getAllUsers() {
     .then(res => res.json())
     .then(users => {
       // Create H1 headertext
-      let header = document.createElement('h1');
+      let header = document.createElement('h2');
       let h = document.createTextNode('Users');
       header.appendChild(h);
       document.getElementById('container').appendChild(header);
@@ -40,7 +40,7 @@ function getAllEntries() {
 
     .then(res => res.json())
     .then(entries => {
-      let header = document.createElement('h1');
+      let header = document.createElement('h2');
       let h = document.createTextNode('Entries');
       header.appendChild(h);
       document.getElementById('container1').appendChild(header);
@@ -50,19 +50,24 @@ function getAllEntries() {
         let title = entries[key].title;
         let content = entries[key].content;
         let createdBy = entries[key].createdBy;
+        let entryID = entries[key].entryID;
         if (entries.hasOwnProperty(key)) {
           let p1 = document.createElement('p');
           let p2 = document.createElement('p');
-          let p3 = document.createElement('p'); 
+          let p3 = document.createElement('p');
+          let p4 = document.createElement('p');
           let t1 = document.createTextNode('Title: ' + title);
           let t2 = document.createTextNode('Content: ' + content);
           let t3 = document.createTextNode('Created By: ' + createdBy);
+          let t4 = document.createTextNode('Entry ID: ' + entryID);
           p1.appendChild(t1);
           p2.appendChild(t2);
-          p3.appendChild(t3); 
+          p3.appendChild(t3);
+          p4.appendChild(t4);
           document.getElementById('container1').appendChild(p1);
           document.getElementById('container1').appendChild(p2);
           document.getElementById('container1').appendChild(p3);
+          document.getElementById('container1').appendChild(p4);
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.class = "btn btn-info"; // Set a class name
@@ -93,7 +98,7 @@ function getAllComments() {
     .then(res => res.json())
     .then(comments => {
       // Create H1 headertext
-      let header = document.createElement('h1');
+      let header = document.createElement('h2');
       let h = document.createTextNode('Comments');
       header.appendChild(h);
       document.getElementById('container2').appendChild(header);
@@ -218,7 +223,17 @@ function deleteEntry(ID) {
 }
 
 function editEntry() {
-  alert('Yes!');
+  var entryID = document.getElementById('entryID').value;
+   let title = document.getElementById('editTitle').value;
+   let content = document.getElementById('editContent').value;
+   fetch('api/entries/' + entryID, {
+     method: 'PATCH',
+     headers: {
+       'Content-Type': 'application/x-www-form-urlencoded'
+     },
+     body: 'content=Fresh Content&title=My New Shiny Title'
+   });
+  
 }
 
 function deleteComment(ID) {
@@ -273,12 +288,12 @@ function newEntry() {
     let content = document.getElementById('newContent').value;
     let createdBy = 3;
     let data = {
-        title: title,
-        content: content,
-        createdBy: createdBy
+        'title': title,
+        'content': content,
+        'createdBy': createdBy
     };
-    alert(data[1]);
-    fetch('api/entries/', {
+    
+    fetch('api/entries', {
         method: 'POST',
         headers: {
           'Accept': 'application/json, text/plain, */*',
