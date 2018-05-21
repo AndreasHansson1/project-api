@@ -307,6 +307,46 @@ function newEntry() {
     document.getElementById("newEntryContainer").appendChild(f);
   }
 
+  function editEntry() {
+    let ID = document.getElementById('searchEntryID').value;
+    fetch('api/entries/' + ID)
+      .then(res => res.json())
+      .then(entries => {
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        let p3 = document.createElement('p');
+        let t1 = document.createTextNode('Title: ' + entries.title);
+        let t2 = document.createTextNode('Content: ' + entries.content);
+        let t3 = document.createTextNode('Created By: ' + entries.createdBy);
+        p1.appendChild(t1);
+        p2.appendChild(t2);
+        p3.appendChild(t3);
+        document.getElementById('container4').appendChild(p1);
+        document.getElementById('container4').appendChild(p2);
+        document.getElementById('container4').appendChild(p2);
+
+        // Create Edit Button
+        let entryEditBtn = document.createElement('button');
+        entryEditBtn.class = "btn btn-info"; // Set a class name
+        entryEditBtn.setAttribute("onclick", editEntry);
+        entryEditBtn.onclick = editEntry; // Calls function to edit entry
+        document.getElementsByClassName("btn btn-info").onclick = editEntry;
+        let t = document.createTextNode('Edit');
+        entryEditBtn.appendChild(t);
+        document.getElementById('container1').appendChild(entryEditBtn);
+        // Create Delete Button
+        let entryDeleteBtn = document.createElement('button');
+        entryDeleteBtn.class = "btn btn-danger"; // Set a class name
+        entryDeleteBtn.id = entries.entryID;
+        entryDeleteBtn.setAttribute("onclick", deleteEntry);
+        entryDeleteBtn.onclick = deleteEntry; // Calls function to delete entry
+        document.getElementsByClassName("btn btn-danger").onclick = deleteEntry;
+        let b = document.createTextNode('Delete');
+        entryDeleteBtn.appendChild(b);
+        document.getElementById('container4').appendChild(entryDeleteBtn);
+      });
+  }
+
 
 
 
