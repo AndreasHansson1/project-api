@@ -69,17 +69,17 @@
 </nav> -->
 
 
-    <div class="container">
+    <div class="newEntryContainer">
     <br>
-    <h1>Project API</h1>
-      <div class="form-group">
-      <h2>New Entry</h2>
-          <input type="text" id="newTitle" placeholder="Title">
-          <form action="" id="newContent">
-          <textarea name="content" placeholder="Content"></textarea>
-          <button type="submit" class="btn btn-success">Add</button>
+      <h1>Project API</h1>
+        <div class="form-group">
+          <form action="api/entries" method="post">
+          <h2>New Entry</h2>
+            <input type="text" class="form-control" id="newTitle" placeholder="Title">
+            <textarea name="content" class="form-control" id="newContent" placeholder="Content"></textarea>
+            <button type="submit" onclick="newEntry()" class="btn btn-success">Add</button>
+          </div>
         </form>
-      </div>
     </div>
 
 <div class="container">

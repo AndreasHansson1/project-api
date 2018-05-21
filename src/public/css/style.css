@@ -12,6 +12,11 @@ body, html {
   max-width: 100%
 }
 
+.newEntryContainer {
+  max-width: 50%;
+  margin: 2rem;
+}
+
 .wrapper {
   padding: 2rem;
 }

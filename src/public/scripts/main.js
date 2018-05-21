@@ -143,7 +143,7 @@ function getOneUser() {
 }
 
 function getOneEntry() {
-  var ID = document.getElementById('searchEntryID').value;
+  let ID = document.getElementById('searchEntryID').value;
   fetch('api/entries/' + ID)
     .then(res => res.json())
     .then(entries => {
@@ -210,7 +210,6 @@ function getOneComment() {
 
 function deleteEntry(ID) {
   alert('Entry Deleted!');
-  getAllEntries();
   ID = this.id;
   return fetch('api/entries/' + ID, {
       method: 'delete'
@@ -224,13 +223,73 @@ function editEntry() {
 
 function deleteComment(ID) {
   alert('Comment Deleted!');
-  getAllComments();
   ID = this.id;
   return fetch('api/comments/' + ID, {
       method: 'delete'
       })
       .then(res => res.json());
 }
+
+// function newEntry() {
+//   let title = document.getElementById('newTitle').value;
+//   let content = document.getElementById('newContent').value;
+//   fetch('api/entries', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//         title: title,
+//         content: content 
+//     })
+//   }).then((res) => res.json())
+//     .then((data) => alert(data));
+//     }
+
+
+// function newEntry() {
+// // let entryID = this.entryID;
+// let title = document.getElementById('newTitle').value;
+// let content = document.getElementById('newContent').value;
+// let createdBy = 3;
+// let data = {
+//   title: title,
+//   content: content,
+//   createdBy: createdBy
+// };
+
+// fetch('api/entries/', {
+//     method: 'POST', 
+//     body: JSON.stringify(data),
+//     headers: new Headers({
+//       'Content-Type': 'application/json'
+//     })
+//   }).then(res => res.json())
+//   .catch(error => alert('Error:', error))
+//   .then(response => alert('Success:', response));
+// }
+
+
+
+function newEntry() {
+    let title = document.getElementById('newTitle').value;
+    let content = document.getElementById('newContent').value;
+    let createdBy = 3;
+    let data = {
+        title: title,
+        content: content,
+        createdBy: createdBy
+    };
+    alert(data[1]);
+    fetch('api/entries/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .then((data) => alert(data));
+  }
+
 
 
 
