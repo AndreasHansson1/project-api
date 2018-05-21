@@ -38,15 +38,15 @@ class EntryController
         );
 
         $addEntry->execute([
-            ':title'        => $_POST['title'],
-            ':content'      => $_POST['content'],
-            ':createdBy'    => $_GET['userID']
+            ':title'        => $entry['title'],
+            ':content'      => $entry['content'],
+            ':createdBy'    => $entry['createdBy']
             ]);
 
         return [
-          'userID'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
-          'content'   => $entry['content']
+          'content'   => $entry['content'],
+          'createdBy'    => (int)$this->db->lastInsertId()
         ];
     }
 
