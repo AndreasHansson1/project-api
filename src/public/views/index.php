@@ -74,12 +74,9 @@
           </div>
         </form>
     </div> -->
-<div id="newEntryContainer"></div> 
-<form name ="getUsers" id="getUsers" action="#">
-
-</form>
-<div id="editEntryContainer"></div> 
-<div id="newCommentContainer"></div> 
+<div class="formContainer" id="newEntryContainer"></div> 
+<div class="formContainer" id="editEntryContainer"></div> 
+<div class="formContainer" id="newCommentContainer"></div> 
 
 
 

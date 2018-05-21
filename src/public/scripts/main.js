@@ -410,7 +410,7 @@ function newEntry() {
      i.setAttribute('name', "content");
      i.setAttribute('placeholder', "Content");
      i.setAttribute('class', "form-control");
-     i.setAttribute('id', "newComment");
+     i.setAttribute('id', "newContent");
      // Create submit button
      let s = document.createElement("input");
      s.setAttribute('type', "submit");
