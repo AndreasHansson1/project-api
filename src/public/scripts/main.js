@@ -97,7 +97,7 @@ function getAllComments() {
   fetch('api/comments?limit=' + quantity)
     .then(res => res.json())
     .then(comments => {
-      // Create H1 headertext
+      // Create H2 headertext
       let header = document.createElement('h2');
       let h = document.createTextNode('Comments');
       header.appendChild(h);
@@ -245,48 +245,11 @@ function deleteComment(ID) {
       .then(res => res.json());
 }
 
-// function newEntry() {
-//   let title = document.getElementById('newTitle').value;
-//   let content = document.getElementById('newContent').value;
-//   fetch('api/entries', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//         title: title,
-//         content: content 
-//     })
-//   }).then((res) => res.json())
-//     .then((data) => alert(data));
-//     }
-
-
-// function newEntry() {
-// // let entryID = this.entryID;
-// let title = document.getElementById('newTitle').value;
-// let content = document.getElementById('newContent').value;
-// let createdBy = 3;
-// let data = {
-//   title: title,
-//   content: content,
-//   createdBy: createdBy
-// };
-
-// fetch('api/entries/', {
-//     method: 'POST', 
-//     body: JSON.stringify(data),
-//     headers: new Headers({
-//       'Content-Type': 'application/json'
-//     })
-//   }).then(res => res.json())
-//   .catch(error => alert('Error:', error))
-//   .then(response => alert('Success:', response));
-// }
-
-
-
 function newEntry() {
     let title = document.getElementById('newTitle').value;
     let content = document.getElementById('newContent').value;
     let createdBy = 3;
+    alert(title);
     let data = {
         'title': title,
         'content': content,
@@ -302,7 +265,86 @@ function newEntry() {
         body: JSON.stringify(data)
       })
       .then((res) => res.json())
-      .then((data) => alert(data));
+      .then(data);
+  }
+
+  function createNewEntryForm() {
+    // Create H2 headertext
+    let header = document.createElement('h2');
+    let h = document.createTextNode('New Entry');
+    header.appendChild(h);
+    document.getElementById('newEntryContainer').appendChild(header);
+    // Create form
+    let f = document.createElement("form");
+    f.setAttribute('method', "post");
+    f.setAttribute('action', "");
+    f.setAttribute('class', "form-group");
+    // Create input field
+    let i = document.createElement("input");
+    i.setAttribute('type', "text");
+    i.setAttribute('name', "title");
+    i.setAttribute('placeholder', "Title");
+    i.setAttribute('class', "form-control");
+    i.setAttribute('id', "newTitle");
+    // Create textarea
+    let ii = document.createElement("textarea"); 
+    ii.setAttribute('type', "text");
+    ii.setAttribute('name', "content");
+    ii.setAttribute('placeholder', "Content");
+    ii.setAttribute('class', "form-control");
+    ii.setAttribute('id', "newContent");
+    // Create submit button
+    let s = document.createElement("input"); 
+    s.setAttribute('type', "submit");
+    s.setAttribute('value', "Submit");
+    s.setAttribute('class', "btn btn-success");
+    s.setAttribute('onclick', "newEntry()");
+
+    f.appendChild(i);
+    f.appendChild(ii);
+    f.appendChild(s);
+
+    document.getElementById("newEntryContainer").appendChild(f);
+  }
+
+  function editEntry() {
+    let ID = document.getElementById('searchEntryID').value;
+    fetch('api/entries/' + ID)
+      .then(res => res.json())
+      .then(entries => {
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        let p3 = document.createElement('p');
+        let t1 = document.createTextNode('Title: ' + entries.title);
+        let t2 = document.createTextNode('Content: ' + entries.content);
+        let t3 = document.createTextNode('Created By: ' + entries.createdBy);
+        p1.appendChild(t1);
+        p2.appendChild(t2);
+        p3.appendChild(t3);
+        document.getElementById('container4').appendChild(p1);
+        document.getElementById('container4').appendChild(p2);
+        document.getElementById('container4').appendChild(p2);
+
+        // Create Edit Button
+        let entryEditBtn = document.createElement('button');
+        entryEditBtn.class = "btn btn-info"; // Set a class name
+        entryEditBtn.setAttribute("onclick", editEntry);
+        entryEditBtn.onclick = editEntry; // Calls function to edit entry
+        document.getElementsByClassName("btn btn-info").onclick = editEntry;
+        let t = document.createTextNode('Edit');
+        entryEditBtn.appendChild(t);
+        document.getElementById('container1').appendChild(entryEditBtn);
+        // Create Delete Button
+        let entryDeleteBtn = document.createElement('button');
+        entryDeleteBtn.class = "btn btn-danger"; // Set a class name
+        entryDeleteBtn.id = entries.entryID;
+        entryDeleteBtn.setAttribute("onclick", deleteEntry);
+        entryDeleteBtn.onclick = deleteEntry; // Calls function to delete entry
+        document.getElementsByClassName("btn btn-danger").onclick = deleteEntry;
+        let b = document.createTextNode('Delete');
+        entryDeleteBtn.appendChild(b);
+        document.getElementById('container4').appendChild(entryDeleteBtn);
+      });
   }
 
 
