@@ -91,7 +91,7 @@ class EntryController
         $editEntry = $this->db->prepare(
             'UPDATE entries 
     --    SET entryID     = :entryID,
-          SET   title     = :title, 
+          SET   title  = :title, 
              content   = :content  
        WHERE entryID   = :entryID'
         );

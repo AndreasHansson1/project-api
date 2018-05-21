@@ -12,12 +12,7 @@ body, html {
   max-width: 100%
 }
 
-.newEntryContainer {
-  max-width: 30%;
-  margin: 2rem;
-}
-
-.editEntryContainer {
+#newEntryContainer {
   max-width: 30%;
   margin: 2rem;
 }

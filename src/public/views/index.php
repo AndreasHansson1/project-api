@@ -69,7 +69,7 @@
 </nav> -->
 
   <h1>Project API</h1>
-    <div class="newEntryContainer">
+    <!-- <div class="formContainer">
         <div class="form-group">
           <form action="" method="post">
           <h2>New Entry</h2>
@@ -79,7 +79,7 @@
           </div>
         </form>
     </div>
-    <div class="editEntryContainer">
+    <div class="formContainer">
         <div class="form-group">
           <form action="" method="post">
           <h2>Edit Entry</h2>
@@ -90,6 +90,23 @@
           </div>
         </form>
     </div>
+    <div class="formContainer">
+        <div class="form-group">
+          <form action="" method="post">
+          <h2>Comment</h2>
+            <input type="text" class="form-control" id="entryID" placeholder="Entry ID">
+            <textarea name="content" class="form-control" id="editContent" placeholder="Content"></textarea>
+            <button type="submit" onclick="newComment()" class="btn btn-success">Comment</button>
+          </div>
+        </form>
+    </div> -->
+<div id="newEntryContainer"></div> 
+<form name ="getUsers" id="getUsers" action="#">
+<input type="button" name="submit" value="New Entry" class="btn btn-primary"
+      onclick="createNewEntryForm();" />
+</form>
+
+
 
 <div class="container">
   <form name ="getUsers" id="getUsers" action="#">
