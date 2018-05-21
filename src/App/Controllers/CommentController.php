@@ -39,32 +39,20 @@ class CommentController
         $deleteComment->execute([':commentID' => $commentID]);
     }
 
-    public function add($entry)
+    public function add($comment)
     {
-        
-        $addEntry = $this->db->prepare(
-            'INSERT INTO entries 
-            (title, content, userID)
-            VALUES (:title, :content, :userID)'
+        $addComment = $this->db->prepare(
+            'INSERT INTO comments 
+            (content)
+            VALUES (:content)'
         );
 
-        /**
-         * Insert the value from the parameter into the database
-         */
-        $addEntry->execute([
-            ':title'   => $_POST['title'],
-            ':content' => $_POST['content'],
-            ':userID'  => $_POST['userID']
+        $addComment->execute([
+            ':content' => $_POST['content']
             ]);
 
-        /**
-         * A INSERT INTO does not return the created object. If we want to return it to the user
-         * that has posted the todo we must build it ourself or fetch it after we have inserted it
-         * We can always get the last inserted row in a database by calling 'lastInsertId()'-function
-         */
         return [
           'userID'    => (int)$this->db->lastInsertId(),
-          'title'     => $entry['title'],
           'content'   => $entry['content']
         ];
     }

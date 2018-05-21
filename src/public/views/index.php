@@ -79,6 +79,8 @@
 <input type="button" name="submit" value="New Entry" class="btn btn-primary"
       onclick="createNewEntryForm();" />
 </form>
+<div id="editEntryContainer"></div> 
+<div id="newCommentContainer"></div> 
 
 
 

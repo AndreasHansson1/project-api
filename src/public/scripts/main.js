@@ -71,12 +71,21 @@ function getAllEntries() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.class = "btn btn-info"; // Set a class name
-          entryEditBtn.setAttribute("onclick", editEntry);
-          entryEditBtn.onclick = editEntry; // Calls function to edit entry
-          document.getElementsByClassName("btn btn-info").onclick = editEntry;
+          entryEditBtn.setAttribute("onclick", createEditEntryForm);
+          entryEditBtn.onclick = createEditEntryForm; // Calls function to edit entry
+          document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
-          document.getElementById('container1').appendChild(entryEditBtn); 
+          document.getElementById('container1').appendChild(entryEditBtn);
+          // Create Comment Button
+          let commentBtn = document.createElement('button');
+          commentBtn.class = "btn btn-info"; // Set a class name
+          commentBtn.setAttribute("onclick", createCommentForm);
+          commentBtn.onclick = createCommentForm; // Calls function to create Comment form
+          document.getElementsByClassName("btn btn-info").onclick = createCommentForm;
+          let c = document.createTextNode('Comment');
+          commentBtn.appendChild(c);
+          document.getElementById('container1').appendChild(commentBtn);
           // Create Delete Button
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.class = "btn btn-danger"; // Set a class name
@@ -155,25 +164,38 @@ function getOneEntry() {
       let p1 = document.createElement('p');
       let p2 = document.createElement('p');
       let p3 = document.createElement('p');
+      let p4 = document.createElement('p');
       let t1 = document.createTextNode('Title: ' + entries.title);
       let t2 = document.createTextNode('Content: ' + entries.content);
       let t3 = document.createTextNode('Created By: ' + entries.createdBy);
+      let t4 = document.createTextNode('Entry ID: ' + entries.entryID);
       p1.appendChild(t1);
       p2.appendChild(t2);
       p3.appendChild(t3);
+      p4.appendChild(t4);
       document.getElementById('container4').appendChild(p1);
       document.getElementById('container4').appendChild(p2);
-      document.getElementById('container4').appendChild(p2);
+      document.getElementById('container4').appendChild(p3);
+      document.getElementById('container4').appendChild(p4);
 
       // Create Edit Button
       let entryEditBtn = document.createElement('button');
       entryEditBtn.class = "btn btn-info"; // Set a class name
-      entryEditBtn.setAttribute("onclick", editEntry);
-      entryEditBtn.onclick = editEntry; // Calls function to edit entry
-      document.getElementsByClassName("btn btn-info").onclick = editEntry;
+      entryEditBtn.setAttribute("onclick", createEditEntryForm);
+      entryEditBtn.onclick = createEditEntryForm; // Calls function to edit entry
+      document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
       let t = document.createTextNode('Edit');
       entryEditBtn.appendChild(t);
-      document.getElementById('container1').appendChild(entryEditBtn);
+      document.getElementById('container4').appendChild(entryEditBtn);
+      // Create Comment Button
+      let commentBtn = document.createElement('button');
+      commentBtn.class = "btn btn-info"; // Set a class name
+      commentBtn.setAttribute("onclick", createCommentForm);
+      commentBtn.onclick = createCommentForm; // Calls function to create Comment form
+      document.getElementsByClassName("btn btn-info").onclick = createCommentForm;
+      let c = document.createTextNode('Comment');
+      commentBtn.appendChild(c);
+      document.getElementById('container4').appendChild(commentBtn);
       // Create Delete Button
       let entryDeleteBtn = document.createElement('button');
       entryDeleteBtn.class = "btn btn-danger"; // Set a class name
@@ -188,8 +210,8 @@ function getOneEntry() {
 }
 
 function getOneComment() {
-  var ID = document.getElementById('searchCommentID').value;
-  fetch('api/comments/' + ID)
+    let ID = document.getElementById('searchCommentID').value;
+    fetch('api/comments/' + ID)
     .then(res => res.json())
     .then(comments => {
       let p1 = document.createElement('p');
@@ -223,15 +245,23 @@ function deleteEntry(ID) {
 }
 
 function editEntry() {
-  var entryID = document.getElementById('entryID').value;
-   let title = document.getElementById('editTitle').value;
-   let content = document.getElementById('editContent').value;
+  alert('Edit Function');
+    let entryID = document.getElementById('entryID').value;
+    let title = document.getElementById('editTitle').value;
+    let content = document.getElementById('editContent').value;
+
+     let data = {
+       'entryID': entryID,
+       'title': title,
+       'content': content
+     };
+
    fetch('api/entries/' + entryID, {
      method: 'PATCH',
      headers: {
        'Content-Type': 'application/x-www-form-urlencoded'
      },
-     body: 'content=Fresh Content&title=My New Shiny Title'
+     body: JSON.stringify(data)
    });
   
 }
@@ -249,7 +279,7 @@ function newEntry() {
     let title = document.getElementById('newTitle').value;
     let content = document.getElementById('newContent').value;
     let createdBy = 3;
-    alert(title);
+    
     let data = {
         'title': title,
         'content': content,
@@ -307,45 +337,79 @@ function newEntry() {
     document.getElementById("newEntryContainer").appendChild(f);
   }
 
-  function editEntry() {
-    let ID = document.getElementById('searchEntryID').value;
-    fetch('api/entries/' + ID)
-      .then(res => res.json())
-      .then(entries => {
-        let p1 = document.createElement('p');
-        let p2 = document.createElement('p');
-        let p3 = document.createElement('p');
-        let t1 = document.createTextNode('Title: ' + entries.title);
-        let t2 = document.createTextNode('Content: ' + entries.content);
-        let t3 = document.createTextNode('Created By: ' + entries.createdBy);
-        p1.appendChild(t1);
-        p2.appendChild(t2);
-        p3.appendChild(t3);
-        document.getElementById('container4').appendChild(p1);
-        document.getElementById('container4').appendChild(p2);
-        document.getElementById('container4').appendChild(p2);
+  function createEditEntryForm() {
+   // Create H2 headertext
+   let header = document.createElement('h2');
+   let h = document.createTextNode('Edit Entry');
+   header.appendChild(h);
+   document.getElementById('editEntryContainer').appendChild(header);
+   // Create form
+   let f = document.createElement("form");
+   f.setAttribute('method', "patch");
+   f.setAttribute('action', "");
+   f.setAttribute('class', "form-group");
+   // Create input field
+   let i = document.createElement("input");
+   i.setAttribute('type', "text");
+   i.setAttribute('name', "title");
+   i.setAttribute('placeholder', "Title");
+   i.setAttribute('class', "form-control");
+   i.setAttribute('id', "editTitle");
+   // Create textarea
+   let ii = document.createElement("textarea");
+   ii.setAttribute('type', "text");
+   ii.setAttribute('name', "content");
+   ii.setAttribute('placeholder', "Content");
+   ii.setAttribute('class', "form-control");
+   ii.setAttribute('id', "editContent");
+   // Create submit button
+   let s = document.createElement("input");
+   s.setAttribute('type', "submit");
+   s.setAttribute('value', "Submit");
+   s.setAttribute('class', "btn btn-success");
+   s.setAttribute('onclick', "editEntry()");
 
-        // Create Edit Button
-        let entryEditBtn = document.createElement('button');
-        entryEditBtn.class = "btn btn-info"; // Set a class name
-        entryEditBtn.setAttribute("onclick", editEntry);
-        entryEditBtn.onclick = editEntry; // Calls function to edit entry
-        document.getElementsByClassName("btn btn-info").onclick = editEntry;
-        let t = document.createTextNode('Edit');
-        entryEditBtn.appendChild(t);
-        document.getElementById('container1').appendChild(entryEditBtn);
-        // Create Delete Button
-        let entryDeleteBtn = document.createElement('button');
-        entryDeleteBtn.class = "btn btn-danger"; // Set a class name
-        entryDeleteBtn.id = entries.entryID;
-        entryDeleteBtn.setAttribute("onclick", deleteEntry);
-        entryDeleteBtn.onclick = deleteEntry; // Calls function to delete entry
-        document.getElementsByClassName("btn btn-danger").onclick = deleteEntry;
-        let b = document.createTextNode('Delete');
-        entryDeleteBtn.appendChild(b);
-        document.getElementById('container4').appendChild(entryDeleteBtn);
-      });
-  }
+   f.appendChild(i);
+   f.appendChild(ii);
+   f.appendChild(s);
+
+   document.getElementById("editEntryContainer").appendChild(f);
+   }
+
+   function createCommentForm() {
+     // Create H2 headertext
+     let header = document.createElement('h2');
+     let h = document.createTextNode('Comment');
+     header.appendChild(h);
+     document.getElementById('newCommentContainer').appendChild(header);
+     // Create form
+     let f = document.createElement("form");
+     f.setAttribute('method', "post");
+     f.setAttribute('action', "");
+     f.setAttribute('class', "form-group");
+     // Create textarea
+     let i = document.createElement("textarea");
+     i.setAttribute('type', "text");
+     i.setAttribute('name', "content");
+     i.setAttribute('placeholder', "Content");
+     i.setAttribute('class', "form-control");
+     i.setAttribute('id', "newComment");
+     // Create submit button
+     let s = document.createElement("input");
+     s.setAttribute('type', "submit");
+     s.setAttribute('value', "Submit");
+     s.setAttribute('class', "btn btn-success");
+     s.setAttribute('onclick', "newComment()");
+
+     f.appendChild(i);
+     f.appendChild(s);
+
+     document.getElementById("newCommentContainer").appendChild(f);
+   }
+
+   function newComment() {
+     alert('Hi from comment Function!');
+   }
 
 
 
