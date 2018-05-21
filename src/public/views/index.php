@@ -74,54 +74,48 @@
           </div>
         </form>
     </div> -->
-<div id="newEntryContainer"></div> 
-<form name ="getUsers" id="getUsers" action="#">
-<input type="button" name="submit" value="New Entry" class="btn btn-primary"
-      onclick="createNewEntryForm();" />
-</form>
-<div id="editEntryContainer"></div> 
-<div id="newCommentContainer"></div> 
+<div class="formContainer" id="newEntryContainer"></div> 
+<div class="formContainer" id="editEntryContainer"></div> 
+<div class="formContainer" id="newCommentContainer"></div> 
 
 
 
 <div class="container">
-  <form name ="getUsers" id="getUsers" action="#">
-      <input type="button" name="submit" value="Get All Users" class="btn btn-primary btn-sm"
+  <form>
+    <div class="form-group">
+      <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />
-  </form>
-
-  <form name ="getEntries" id="getEntries" action="#">
-      Get Entries: <input type="text" name="name" id="entryQuantity" placeholder=" Quantity" />
+      <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
+      onclick="createNewEntryForm();" />
+    </div>
+    <div class="form-group">
+      Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />
       <input type="button" name="submit" value="Get Entries" class="btn btn-primary btn-sm"
       onclick="getAllEntries();" />
-  </form>
-
-  <form name ="getCommants" id="getComments" action="#">
-      Get Comments: <input type="text" name="name" id="commentQuantity" placeholder=" Quantity" />
+    </div>
+    <div class="form-group">
+      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder=" Quantity" />
       <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="getAllComments();" />
-  </form>
-
-  <form name ="searchUser" id="searchUser" action="#">
-      Single User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
+    </div>
+    <div class="form-group">
+      Single User: <input type="text" class="form-control" name="name" id="searchUserID" placeholder=" ID" />
       <input type="button" name="submit" value="Get User" class="btn btn-primary btn-sm"
       onclick="getOneUser();" />
-  </form>
-
-  <form name ="searchEntry" id="searchEntry" action="#">
-      Single Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
+    </div>
+    <div class="form-group">
+      Single Entry: <input type="text" class="form-control" name="name" id="searchEntryID" placeholder=" ID" />
       <input type="button" name="submit" value="Get Entry" class="btn btn-primary btn-sm"
       onclick="getOneEntry();" />
-  </form>
-
-  <form name ="searchComment" id="searchComment" action="#">
-      Single Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
+    </div>
+    <div class="form-group">
+      Single Comment: <input type="text" class="form-control" name="name" id="searchCommentID" placeholder=" ID" />
       <input type="button" name="submit" value="Get Comment" class="btn btn-primary btn-sm"
       onclick="getOneComment();" />
+    </div>
   </form>
 </div>
 <div class="wrapper">
-    <div id="container"></div>
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>
