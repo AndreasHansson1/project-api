@@ -11,11 +11,11 @@
 </head>
 <body>
 <?php if (isset($_SESSION["loggedIn"])): ?>
-<div class="container">
-  <div class="jumbotron">
-    <h1>Project API</h1>
-  </div>
+
+<div class="jumbotron">
+  <h1>Project API</h1>
 </div>
+
 <div class="container">
     <br>
     <h2>Sign Up</h2>
@@ -45,11 +45,9 @@
             <input type="submit" name="submit" value="Login" class="btn btn-success">
     </form>
 </div>
-  <?php else : ?>
-  <div class="container">
-    <div class="jumbotron">
-      <h1>Project API</h1>
-    </div> 
+<?php else : ?>
+  <div class="jumbotron">
+    <h1>Project API</h1>
   </div>
 <div class="formContainer" id="newEntryContainer"></div> 
 <div class="formContainer" id="editEntryContainer"></div> 
