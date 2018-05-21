@@ -24,6 +24,11 @@ body, html {
   padding: 2em;
 }
 
+#editEntryContainer {
+  max-width: 30%;
+  margin: 2rem;
+}
+
 .wrapper {
   display: flex;
   text-align: center;
