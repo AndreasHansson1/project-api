@@ -12,6 +12,11 @@
 <body>
 <?php if (isset($_SESSION["loggedIn"])): ?>
 <div class="container">
+  <div class="jumbotron">
+    <h1>Project API</h1>
+  </div>
+</div>
+<div class="container">
     <br>
     <h2>Sign Up</h2>
     <form action="" method="POST">
@@ -40,48 +45,18 @@
             <input type="submit" name="submit" value="Login" class="btn btn-success">
     </form>
 </div>
-    <?php else : ?>
-
-  <h1>Project API</h1>
-    <!-- <div class="formContainer">
-        <div class="form-group">
-          <form action="" method="post">
-          <h2>New Entry</h2>
-            <input type="text" class="form-control" id="newTitle" placeholder="Title">
-            <textarea name="content" class="form-control" id="newContent" placeholder="Content"></textarea>
-            <button type="submit" onclick="newEntry()" class="btn btn-success">Add</button>
-          </div>
-        </form>
-    </div>
-    <div class="formContainer">
-        <div class="form-group">
-          <form action="" method="post">
-          <h2>Edit Entry</h2>
-            <input type="text" class="form-control" id="entryID" placeholder="EntryID">
-            <input type="text" class="form-control" id="editTitle" placeholder="Title">
-            <textarea name="content" class="form-control" id="editContent" placeholder="Content"></textarea>
-            <button type="submit" onclick="editEntry()" class="btn btn-success">Edit</button>
-          </div>
-        </form>
-    </div>
-    <div class="formContainer">
-        <div class="form-group">
-          <form action="" method="post">
-          <h2>Comment</h2>
-            <input type="text" class="form-control" id="entryID" placeholder="Entry ID">
-            <textarea name="content" class="form-control" id="editContent" placeholder="Content"></textarea>
-            <button type="submit" onclick="newComment()" class="btn btn-success">Comment</button>
-          </div>
-        </form>
-    </div> -->
+  <?php else : ?>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Project API</h1>
+    </div> 
+  </div>
 <div class="formContainer" id="newEntryContainer"></div> 
 <div class="formContainer" id="editEntryContainer"></div> 
 <div class="formContainer" id="newCommentContainer"></div> 
 
-
-
 <div class="container">
-  <form>
+  <form action="" method="get">
     <div class="form-group">
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />

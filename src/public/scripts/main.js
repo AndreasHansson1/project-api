@@ -428,6 +428,13 @@ function newEntry() {
      alert('Hi from comment Function!');
    }
 
+   function validateForm() {
+     if(document.getElementsByClassName("form-control").value.length == 0)
+{
+    alert("No empty fields")
+}
+   }
+
 
 
 
