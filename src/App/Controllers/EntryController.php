@@ -44,9 +44,10 @@ class EntryController
             ]);
 
         return [
+          'createdBy'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
-          'content'   => $entry['content'],
-          'createdBy'    => (int)$this->db->lastInsertId()
+          'content'   => $entry['content']
+          
         ];
     }
 
@@ -89,24 +90,27 @@ class EntryController
 
         $editEntry = $this->db->prepare(
             'UPDATE entries 
-       SET entryID     = :entryID,
-             title     = :title, 
+    --    SET entryID     = :entryID,
+          SET   title     = :title, 
              content   = :content  
        WHERE entryID   = :entryID'
         );
 
+        $editEntry->bindParam(':title', $title);
+        $editEntry->bindParam(':content', $content);
+
         $editEntry->execute([
             // ':entryID' => $_GET['entryID'],
-            ':entryID' => $edit['entryID'],
+            // ':entryID' => $edit['entryID'],
             ':title'   => $edit['title'],
             ':content' => $edit['content']
             ]);
 
-        // return [
-        //   'entryID'   => (int)$this->db->lastInsertId(),
-        //   'title'     => $edit['title'],
-        //   'content'   => $edit['content']
-        // ];
+        return [
+          'entryID'   => (int)$this->db->lastInsertId(),
+          'title'     => $edit['title'],
+          'content'   => $edit['content']
+        ];
 
     }
 }
