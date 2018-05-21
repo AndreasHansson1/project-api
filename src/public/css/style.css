@@ -17,6 +17,11 @@ body, html {
   margin: 2rem;
 }
 
+#editEntryContainer {
+  max-width: 30%;
+  margin: 2rem;
+}
+
 .wrapper {
   padding: 2rem;
 }

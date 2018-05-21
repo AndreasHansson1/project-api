@@ -217,6 +217,14 @@ $app->group('/api', function () use ($app) {
         echo 'Updated Entry!';
     });
 
+    // POST COMMENT
+    $app->post('/comments', function ($request, $response, $args) { 
+        
+        $body = $request->getParsedBody();
+        $newComment = $this->entries->add($body);
+        return $response->withJson($newComment);
+    });
+
 });
 // Add later, you need to bo logged in to see all posts: ->add($auth)
 
