@@ -10,25 +10,25 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (isset($_SESSION["loggedIn"])): ?>
-<div class="container">
-  <div class="jumbotron">
-    <h1>Project API</h1>
-  </div>
+<?php if (!isset($_SESSION["loggedIn"])): ?>
+
+<div class="jumbotron">
+  <h1>Project API</h1>
 </div>
+
 <div class="container">
     <br>
     <h2>Sign Up</h2>
     <form action="" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" type="text" name="username">
+            <input class="form-control" id="newUsername" type="text" name="username">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" id="newPassword" type="password" name="password">
         </div>
-            <input type="submit" name="submit" value="Register" class="btn btn-primary">
+            <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
     </form>
     <br><br>
 
@@ -36,20 +36,18 @@
     <form action="" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" type="text" name="username">
+            <input class="form-control" id="loginUsername" type="text" name="username">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" id="loginPassword" type="password" name="password">
         </div>
-            <input type="submit" name="submit" value="Login" class="btn btn-success">
+            <input type="submit" name="submit" value="Login" class="btn btn-success" onclick="login()">
     </form>
 </div>
-  <?php else : ?>
-  <div class="container">
-    <div class="jumbotron">
-      <h1>Project API</h1>
-    </div> 
+<?php else : ?>
+  <div class="jumbotron">
+    <h1>Project API</h1>
   </div>
 <div class="formContainer" id="newEntryContainer"></div> 
 <div class="formContainer" id="editEntryContainer"></div> 

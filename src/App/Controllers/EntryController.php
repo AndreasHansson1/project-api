@@ -33,20 +33,22 @@ class EntryController
 
         $addEntry = $this->db->prepare(
             'INSERT INTO entries 
-            (title, content, createdBy)
-            VALUES (:title, :content, :createdBy)'
+            (title, content, createdBy, createdAt)
+            VALUES (:title, :content, :createdBy, :createdAt)'
         );
 
         $addEntry->execute([
             ':title'        => $entry['title'],
             ':content'      => $entry['content'],
-            ':createdBy'    => $entry['createdBy']
+            ':createdBy'    => $entry['createdBy'],
+            ':createdAt'    => $entry['createdAt']
             ]);
 
         return [
           'createdBy'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
-          'content'   => $entry['content']
+          'content'   => $entry['content'],
+          'createdAt'   => $entry['createdAt']
           
         ];
     }
