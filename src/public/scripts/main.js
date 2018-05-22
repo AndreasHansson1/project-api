@@ -189,6 +189,13 @@ function deleteEntry() {
     );
 }
 
+
+  public function deleteEntry($entryID)
+    {
+        $deleteEntry = $this->db->prepare('DELETE FROM entries WHERE entryID = :entryID');
+        $deleteEntry->execute([':entryID' => $entryID]);
+    }
+
 function editEntry() {
   alert('Yes!');
 }
