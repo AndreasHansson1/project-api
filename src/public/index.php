@@ -36,17 +36,20 @@ $app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, 'index.php');
 });
 
+// ADD NEW USER
+$app->post('/register', function ($request, $response, $args) {
+       
+    $body = $request->getParsedBody();
+    $newUser = $this->users->add($body);
+    return $response->withJson(['data' => $newUser]);
+});
 
 /**
  * I added basic inline login functionality. This could be extracted to a
  * separate class. If the session is set is checked in 'auth.php'
  */
 $app->post('/login', function ($request, $response, $args) {
-    /**
-     * Everything sent in 'body' when doing a POST-request can be
-     * extracted with 'getParsedBody()' from the request-object
-     * https://www.slimframework.com/docs/v3/objects/request.html#the-request-body
-     */
+    
     $body = $request->getParsedBody();
     $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
     $fetchUserStatement->execute([
@@ -212,7 +215,7 @@ $app->group('/api', function () use ($app) {
         // $createdBy = $request->getParam('createdBy');
         // $createdAt = $request->getParam('createdAt'); 
         $body = $request->getParsedBody();
-        $editEntry = $this->entries->editEntry($body);
+        $editEntry = $this->entries->editEntry($body, $entryID);
         return $response->withJson($editEntry);
         echo 'Updated Entry!';
     });
@@ -224,6 +227,22 @@ $app->group('/api', function () use ($app) {
         $newComment = $this->entries->add($body);
         return $response->withJson($newComment);
     });
+
+    $app->post('/login', function ($request, $response, $args) {
+    
+    $body = $request->getParsedBody();
+    $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
+    $fetchUserStatement->execute([
+        ':username' => $body['username']
+    ]);
+    $user = $fetchUserStatement->fetch();
+    if (password_verify($body['password'], $user['password'])) {
+        $_SESSION['loggedIn'] = true;
+        $_SESSION['userID'] = $user['id'];
+        return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
+    }
+    return $response->withJson(['error' => 'wrong password']);
+});
 
 });
 // Add later, you need to bo logged in to see all posts: ->add($auth)

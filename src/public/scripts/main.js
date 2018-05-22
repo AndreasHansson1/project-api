@@ -6,6 +6,47 @@
 
 // main();
 
+function newUser() {
+  let username = document.getElementById('newUsername').value;
+  let password = document.getElementById('newPassword').value;
+  let createdAt = new Date();
+
+  let data = {
+    'username': username,
+    'password': password,
+    'createdAt': createdAt
+  };
+
+  fetch('/register', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
+function login() {
+  let username = document.getElementById('loginUsername').value;
+  let password = document.getElementById('loginPassword').value;
+  alert(username);
+
+  let data = {
+    'username': username,
+    'password': password
+  };
+
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
 function getAllUsers() {
   fetch('api/users')
 
@@ -72,9 +113,7 @@ function getAllEntries() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.class = "btn btn-info"; // Set a class name
-          entryEditBtn.setAttribute("onclick", createEditEntryForm);
-          entryEditBtn.onclick = createEditEntryForm; // Calls function to edit entry
-          document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
+          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
           document.getElementById('container2').appendChild(entryEditBtn);
@@ -167,6 +206,10 @@ function getOneEntry() {
   fetch('api/entries/' + ID)
     .then(res => res.json())
     .then(entries => {
+      let title = entries.title;
+      let content = entries.content;
+      let entryID = entries.entryID;
+      let createdBy = entries.createdBy;
       // Create H2 headertext
       let header = document.createElement('h2');
       let h = document.createTextNode('Entry');
@@ -177,10 +220,10 @@ function getOneEntry() {
       let p2 = document.createElement('p');
       let p3 = document.createElement('p');
       let p4 = document.createElement('p');
-      let t1 = document.createTextNode('Title: ' + entries.title);
-      let t2 = document.createTextNode('Content: ' + entries.content);
-      let t3 = document.createTextNode('Created By: ' + entries.createdBy);
-      let t4 = document.createTextNode('Entry ID: ' + entries.entryID);
+      let t1 = document.createTextNode('Title: ' + title);
+      let t2 = document.createTextNode('Content: ' + content);
+      let t3 = document.createTextNode('Created By: ' + createdBy);
+      let t4 = document.createTextNode('Entry ID: ' + entryID);
       p1.appendChild(t1);
       p2.appendChild(t2);
       p3.appendChild(t3);
@@ -193,9 +236,7 @@ function getOneEntry() {
       // Create Edit Button
       let entryEditBtn = document.createElement('button');
       entryEditBtn.class = "btn btn-info"; // Set a class name
-      entryEditBtn.setAttribute("onclick", createEditEntryForm);
-      entryEditBtn.onclick = createEditEntryForm; // Calls function to edit entry
-      document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
+      entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
       let t = document.createTextNode('Edit');
       entryEditBtn.appendChild(t);
       document.getElementById('container5').appendChild(entryEditBtn);
@@ -261,26 +302,26 @@ function deleteEntry(ID) {
     .then(res => res.json());
 }
 
-function editEntry() {
-  alert('Edit Function');
-    let entryID = document.getElementById('entryID').value;
+function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
     let content = document.getElementById('editContent').value;
 
      let data = {
-       'entryID': entryID,
        'title': title,
        'content': content
      };
 
-   fetch('api/entries/' + entryID, {
-     method: 'PATCH',
+   fetch("api/entries/" + entryID, {
+     method: "PATCH",
      headers: {
-       'Content-Type': 'application/x-www-form-urlencoded'
+       "Content-Type": "application/x-www-form-urlencoded"
      },
-     body: JSON.stringify(data)
-   });
-  
+     body: serialize(data)
+   })
+     .then(res => res.json())
+     .then(obj => {
+       alert(JSON.stringify(obj));
+     });
 }
 
 function deleteComment(ID) {
@@ -295,12 +336,14 @@ function deleteComment(ID) {
 function newEntry() {
     let title = document.getElementById('newTitle').value;
     let content = document.getElementById('newContent').value;
-    let createdBy = 3;
+    let createdBy = 3; //Will be the inlogged userID later i guess?
+    let createdAt = new Date();
     
     let data = {
         'title': title,
         'content': content,
-        'createdBy': createdBy
+        'createdBy': createdBy,
+        'createdAt': createdAt
     };
     
     fetch('api/entries', {
@@ -354,7 +397,7 @@ function newEntry() {
     document.getElementById("newEntryContainer").appendChild(f);
   }
 
-  function createEditEntryForm() {
+  function createEditEntryForm(entryID) {
    // Create H2 headertext
    let header = document.createElement('h2');
    let h = document.createTextNode('Edit Entry');
@@ -384,7 +427,8 @@ function newEntry() {
    s.setAttribute('type', "submit");
    s.setAttribute('value', "Submit");
    s.setAttribute('class', "btn btn-success");
-   s.setAttribute('onclick', "editEntry()");
+  //  s.setAttribute('onclick', "editEntry(entryID)");
+   s.addEventListener('click', () => { editEntry(entryID); });
 
    f.appendChild(i);
    f.appendChild(ii);
@@ -427,13 +471,23 @@ function newEntry() {
    function newComment() {
      alert('Hi from comment Function!');
    }
-
+   // Validation function so you cant leave empty fields in form. Not working yet
    function validateForm() {
      if(document.getElementsByClassName("form-control").value.length == 0)
 {
-    alert("No empty fields")
+    alert("No empty fields");
 }
    }
+
+
+ function serialize(obj) {
+  var str = [];
+  for (var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
 
 
 

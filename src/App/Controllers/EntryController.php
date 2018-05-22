@@ -33,20 +33,22 @@ class EntryController
 
         $addEntry = $this->db->prepare(
             'INSERT INTO entries 
-            (title, content, createdBy)
-            VALUES (:title, :content, :createdBy)'
+            (title, content, createdBy, createdAt)
+            VALUES (:title, :content, :createdBy, :createdAt)'
         );
 
         $addEntry->execute([
             ':title'        => $entry['title'],
             ':content'      => $entry['content'],
-            ':createdBy'    => $entry['createdBy']
+            ':createdBy'    => $entry['createdBy'],
+            ':createdAt'    => $entry['createdAt']
             ]);
 
         return [
           'createdBy'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
-          'content'   => $entry['content']
+          'content'   => $entry['content'],
+          'createdAt'   => $entry['createdAt']
           
         ];
     }
@@ -85,29 +87,28 @@ class EntryController
     }
 
     // Edit Entry
-    public function editEntry($edit)
+    public function editEntry($edit, $entryID)
     {
-
+        return ['edit' => $edit, 'entryID' => $entryID];
         $editEntry = $this->db->prepare(
             'UPDATE entries 
-    --    SET entryID     = :entryID,
-          SET   title  = :title, 
+        SET    title   = :title, 
              content   = :content  
        WHERE entryID   = :entryID'
         );
 
-        $editEntry->bindParam(':title', $title);
-        $editEntry->bindParam(':content', $content);
+        $editEntry->bindParam(':entryID', $entryID);
+        $editEntry->bindParam(':title', $edit['title']);
+        $editEntry->bindParam(':content', $edit['content']);
 
-        $editEntry->execute([
-            // ':entryID' => $_GET['entryID'],
-            // ':entryID' => $edit['entryID'],
-            ':title'   => $edit['title'],
-            ':content' => $edit['content']
-            ]);
+         $editEntry->execute();
+        //     // ':entryID' => $edit['entryID'],
+        //     // ':title'   => $edit['title'],
+        //     // ':content' => $edit['content']
+        //     ]);
 
         return [
-          'entryID'   => (int)$this->db->lastInsertId(),
+          'entryID'   => $entryID,
           'title'     => $edit['title'],
           'content'   => $edit['content']
         ];
