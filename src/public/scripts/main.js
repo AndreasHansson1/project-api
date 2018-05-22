@@ -43,7 +43,8 @@ function login() {
       'Accept': 'application/json, text/plain, */*',
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    credentials: 'include'
   });
 }
 
@@ -370,6 +371,7 @@ function newEntry() {
   }
 
   function createNewEntryForm() {
+    alert('hello');
     // Create H2 headertext
     let header = document.createElement('h2');
     let h = document.createTextNode('New Entry');
