@@ -59,6 +59,20 @@ class CommentController
         ];
     }
 
+    public function allCommentsByEntryID($id)
+    {
+        $allCommentsByEntryID = $this->db->prepare(
+        "SELECT comments.content 
+        FROM comments
+        INNER JOIN entries ON entries.entryID = comments.entryID
+        WHERE entries.entryID = :entryID");
+        $allCommentsByEntryID->execute([
+          ":entryID" => $id
+        ]);
+        $allCommentsByEntry = $allCommentsByEntryID->fetchAll();
+        return $allCommentsByEntry;
+    }
+
    
 
 
