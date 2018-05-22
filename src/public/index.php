@@ -215,7 +215,7 @@ $app->group('/api', function () use ($app) {
         // $createdBy = $request->getParam('createdBy');
         // $createdAt = $request->getParam('createdAt'); 
         $body = $request->getParsedBody();
-        $editEntry = $this->entries->editEntry($body);
+        $editEntry = $this->entries->editEntry($body, $entryID);
         return $response->withJson($editEntry);
         echo 'Updated Entry!';
     });
