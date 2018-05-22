@@ -59,7 +59,7 @@
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />
       <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
-      onclick="createNewEntryForm();" />
+      onclick="createNewEntryForm(createdBy);" />
     </div>
     <div class="form-group">
       Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />
@@ -72,19 +72,29 @@
       onclick="getAllComments();" />
     </div>
     <div class="form-group">
-      Single User: <input type="text" class="form-control" name="name" id="searchUserID" placeholder=" ID" />
+      Single User: <input type="text" class="form-control" name="name" id="searchUserID" placeholder=" UserID" />
       <input type="button" name="submit" value="Get User" class="btn btn-primary btn-sm"
       onclick="getOneUser();" />
     </div>
     <div class="form-group">
-      Single Entry: <input type="text" class="form-control" name="name" id="searchEntryID" placeholder=" ID" />
+      Single Entry: <input type="text" class="form-control" name="name" id="searchEntryID" placeholder=" EntryID" />
       <input type="button" name="submit" value="Get Entry" class="btn btn-primary btn-sm"
       onclick="getOneEntry();" />
     </div>
     <div class="form-group">
-      Single Comment: <input type="text" class="form-control" name="name" id="searchCommentID" placeholder=" ID" />
+      Single Comment: <input type="text" class="form-control" name="name" id="searchCommentID" placeholder=" CommentID" />
       <input type="button" name="submit" value="Get Comment" class="btn btn-primary btn-sm"
       onclick="getOneComment();" />
+    </div>
+    <div class="form-group">
+      All Entries From User: <input type="text" class="form-control" name="name" id="allEntriesFromUser" placeholder=" UserID" />
+      <input type="button" name="submit" value="Get Entries" class="btn btn-primary btn-sm"
+      onclick="getAllEntriesByUserID();" />
+    </div>
+    <div class="form-group">
+      All Comments on A Entry: <input type="text" class="form-control" name="name" id="allCommentsFromEntryID" placeholder=" EntryID" />
+      <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
+      onclick="allCommentsFromEntry();" />
     </div>
   </form>
 </div>

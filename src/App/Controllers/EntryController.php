@@ -114,4 +114,18 @@ class EntryController
         ];
 
     }
+
+    public function allEntriesByUserID($id)
+   {
+       $allEntriesByUserID = $this->db->prepare(
+       'SELECT entries.title, entries.content, entries.createdBy, entries.entryID
+       FROM entries
+       INNER JOIN users ON users.userID = entries.createdBy
+       WHERE entries.createdBy = :createdBy');
+       $allEntriesByUserID->execute([
+         ":createdBy" => $id
+       ]);
+       $allEntriesByUser = $allEntriesByUserID->fetchAll();
+       return $allEntriesByUser;
+   }
 }
