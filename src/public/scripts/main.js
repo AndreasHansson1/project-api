@@ -113,21 +113,21 @@ function getAllEntries() {
           document.getElementById('container2').appendChild(p4);
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
-          entryEditBtn.class = "btn btn-info"; // Set a class name
+          entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
           entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
           document.getElementById('container2').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
-          commentBtn.class = "btn btn-info"; // Set a class name
-          entryEditBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
+          commentBtn.setAttribute("class", "btn btn-info btn-sm");
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container2').appendChild(commentBtn);
           // Create Delete Button
           let entryDeleteBtn = document.createElement('button');
-          entryDeleteBtn.class = "btn btn-danger"; // Set a class name
+          entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           entryDeleteBtn.id = entries[key].entryID;
           entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
           let b = document.createTextNode('Delete');
@@ -160,10 +160,9 @@ function getAllComments() {
           p2.appendChild(t2); 
           document.getElementById('container3').appendChild(p1);
           document.getElementById('container3').appendChild(p2);
-          
           // Create Delete Button
           let commentDeleteBtn = document.createElement('button');
-          commentDeleteBtn.class = "btn btn-danger"; // Set a class name
+          commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           commentDeleteBtn.id = comments[key].commentID;
           commentDeleteBtn.addEventListener("click", () => { deleteComment(); });
           let b = document.createTextNode('Delete');
@@ -229,21 +228,21 @@ function getOneEntry() {
       document.getElementById('container5').appendChild(p4);
       // Create Edit Button
       let entryEditBtn = document.createElement('button');
-      entryEditBtn.class = "btn btn-info"; // Set a class name
+      entryEditBtn.setAttribute('class', "btn btn-warning btn-sm");
       entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
       let t = document.createTextNode('Edit');
       entryEditBtn.appendChild(t);
       document.getElementById('container5').appendChild(entryEditBtn);
       // Create Comment Button
       let commentBtn = document.createElement('button');
-      commentBtn.class = "btn btn-info"; // Set a class name
+      commentBtn.setAttribute("class", "btn btn-info btn-sm");
       commentBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
       let c = document.createTextNode('Comment');
       commentBtn.appendChild(c);
       document.getElementById('container5').appendChild(commentBtn);
       // Create Delete Button
       let entryDeleteBtn = document.createElement('button');
-      entryDeleteBtn.class = "btn btn-danger"; // Set a class name
+      entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
       entryDeleteBtn.id = entries.entryID;
       entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
       let b = document.createTextNode('Delete');
@@ -272,7 +271,7 @@ function getOneComment() {
       document.getElementById('container6').appendChild(p2);
       // Create Delete Button
       let commentDeleteBtn = document.createElement('button');
-      commentDeleteBtn.class = "btn btn-danger"; // Set a class name
+      commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
       commentDeleteBtn.id = comments.commentID;
       commentDeleteBtn.setAttribute("onclick", deleteComment);
       commentDeleteBtn.onclick = deleteComment; // Calls function to delete entry
