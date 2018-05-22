@@ -59,7 +59,7 @@
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />
       <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
-      onclick="createNewEntryForm(createdBy);" />
+      onclick="createNewEntryForm();" />
     </div>
     <div class="form-group">
       Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />

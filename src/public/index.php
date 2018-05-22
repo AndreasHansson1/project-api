@@ -41,7 +41,7 @@ $app->post('/register', function ($request, $response, $args) {
        
     $body = $request->getParsedBody();
     $newUser = $this->users->add($body);
-    return $response->withJson(['data' => $newUser]);
+    return $response->withJson($newUser);
 });
 
 /**
@@ -59,7 +59,7 @@ $app->post('/login', function ($request, $response, $args) {
     if (password_verify($body['password'], $user['password'])) {
         $_SESSION['loggedIn'] = true;
         $_SESSION['userID'] = $user['id'];
-        return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
+        return $response->withJson([ $user['id'], $user['username'] ]);
     }
     return $response->withJson(['error' => 'wrong password']);
 });
@@ -228,6 +228,7 @@ $app->group('/api', function () use ($app) {
         return $response->withJson($newComment);
     });
 
+    // LOGIN
     $app->post('/login', function ($request, $response, $args) {
     
     $body = $request->getParsedBody();
@@ -257,6 +258,6 @@ $app->group('/api', function () use ($app) {
     });
 
 });
-// Add later, you need to bo logged in to see all posts: ->add($auth)
+// add($auth);
 
 $app->run();
