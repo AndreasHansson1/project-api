@@ -11,11 +11,11 @@ function getAllUsers() {
 
     .then(res => res.json())
     .then(users => {
-      // Create H1 headertext
+      // Create H2 headertext
       let header = document.createElement('h2');
       let h = document.createTextNode('Users');
       header.appendChild(h);
-      document.getElementById('container').appendChild(header);
+      document.getElementById('container1').appendChild(header);
       for (var key in users) {
         let username = users[key].username;
         let userID = users[key].userID;
@@ -26,8 +26,8 @@ function getAllUsers() {
           let t2 = document.createTextNode('User ID: ' + userID);
           p1.appendChild(t1);
           p2.appendChild(t2); 
-          document.getElementById('container').appendChild(p1);
-          document.getElementById('container').appendChild(p2);
+          document.getElementById('container1').appendChild(p1);
+          document.getElementById('container1').appendChild(p2);
 
         }
       }
@@ -40,10 +40,11 @@ function getAllEntries() {
 
     .then(res => res.json())
     .then(entries => {
+      // Create header text
       let header = document.createElement('h2');
       let h = document.createTextNode('Entries');
       header.appendChild(h);
-      document.getElementById('container1').appendChild(header);
+      document.getElementById('container2').appendChild(header);
 
       for (var key in entries) {
         
@@ -64,10 +65,10 @@ function getAllEntries() {
           p2.appendChild(t2);
           p3.appendChild(t3);
           p4.appendChild(t4);
-          document.getElementById('container1').appendChild(p1);
-          document.getElementById('container1').appendChild(p2);
-          document.getElementById('container1').appendChild(p3);
-          document.getElementById('container1').appendChild(p4);
+          document.getElementById('container2').appendChild(p1);
+          document.getElementById('container2').appendChild(p2);
+          document.getElementById('container2').appendChild(p3);
+          document.getElementById('container2').appendChild(p4);
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.class = "btn btn-info"; // Set a class name
@@ -76,7 +77,7 @@ function getAllEntries() {
           document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
-          document.getElementById('container1').appendChild(entryEditBtn);
+          document.getElementById('container2').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.class = "btn btn-info"; // Set a class name
@@ -85,7 +86,7 @@ function getAllEntries() {
           document.getElementsByClassName("btn btn-info").onclick = createCommentForm;
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
-          document.getElementById('container1').appendChild(commentBtn);
+          document.getElementById('container2').appendChild(commentBtn);
           // Create Delete Button
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.class = "btn btn-danger"; // Set a class name
@@ -95,7 +96,7 @@ function getAllEntries() {
           document.getElementsByClassName("btn btn-danger").onclick = deleteEntry;
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
-          document.getElementById('container1').appendChild(entryDeleteBtn);
+          document.getElementById('container2').appendChild(entryDeleteBtn);
         }
       }
     });
@@ -110,7 +111,7 @@ function getAllComments() {
       let header = document.createElement('h2');
       let h = document.createTextNode('Comments');
       header.appendChild(h);
-      document.getElementById('container2').appendChild(header);
+      document.getElementById('container3').appendChild(header);
       for (var key in comments) {
         let content = comments[key].content;
         let createdBy = comments[key].createdBy;
@@ -121,8 +122,8 @@ function getAllComments() {
           let t2 = document.createTextNode('Created By: ' + createdBy);
           p1.appendChild(t1);
           p2.appendChild(t2); 
-          document.getElementById('container2').appendChild(p1);
-          document.getElementById('container2').appendChild(p2);
+          document.getElementById('container3').appendChild(p1);
+          document.getElementById('container3').appendChild(p2);
           
           // Create Delete Button
           let commentDeleteBtn = document.createElement('button');
@@ -133,26 +134,31 @@ function getAllComments() {
           document.getElementsByClassName("btn btn-danger").onclick = deleteComment;
           let b = document.createTextNode('Delete');
           commentDeleteBtn.appendChild(b);
-          document.getElementById('container2').appendChild(commentDeleteBtn);
+          document.getElementById('container3').appendChild(commentDeleteBtn);
         }
     }
   });
 }
-// getAllComments();
 
 function getOneUser() {
   var ID = document.getElementById('searchUserID').value;
   fetch('api/users/' + ID)
     .then(res => res.json())
     .then(users => {
-          let p1 = document.createElement('p');
-          let p2 = document.createElement('p');
-          let t1 = document.createTextNode('Username: ' + users.username);
-          let t2 = document.createTextNode('User ID: ' + users.userID);
-          p1.appendChild(t1);
-          p2.appendChild(t2);
-          document.getElementById('container3').appendChild(p1);
-          document.getElementById('container3').appendChild(p2);
+      // Create H2 headertext
+      let header = document.createElement('h2');
+      let h = document.createTextNode('User');
+      header.appendChild(h);
+      document.getElementById('container4').appendChild(header);
+
+      let p1 = document.createElement('p');
+      let p2 = document.createElement('p');
+      let t1 = document.createTextNode('Username: ' + users.username);
+      let t2 = document.createTextNode('User ID: ' + users.userID);
+      p1.appendChild(t1);
+      p2.appendChild(t2);
+      document.getElementById('container4').appendChild(p1);
+      document.getElementById('container4').appendChild(p2);
     });
 }
 
@@ -161,6 +167,12 @@ function getOneEntry() {
   fetch('api/entries/' + ID)
     .then(res => res.json())
     .then(entries => {
+      // Create H2 headertext
+      let header = document.createElement('h2');
+      let h = document.createTextNode('Entry');
+      header.appendChild(h);
+      document.getElementById('container5').appendChild(header);
+
       let p1 = document.createElement('p');
       let p2 = document.createElement('p');
       let p3 = document.createElement('p');
@@ -173,10 +185,10 @@ function getOneEntry() {
       p2.appendChild(t2);
       p3.appendChild(t3);
       p4.appendChild(t4);
-      document.getElementById('container4').appendChild(p1);
-      document.getElementById('container4').appendChild(p2);
-      document.getElementById('container4').appendChild(p3);
-      document.getElementById('container4').appendChild(p4);
+      document.getElementById('container5').appendChild(p1);
+      document.getElementById('container5').appendChild(p2);
+      document.getElementById('container5').appendChild(p3);
+      document.getElementById('container5').appendChild(p4);
 
       // Create Edit Button
       let entryEditBtn = document.createElement('button');
@@ -186,7 +198,7 @@ function getOneEntry() {
       document.getElementsByClassName("btn btn-info").onclick = createEditEntryForm;
       let t = document.createTextNode('Edit');
       entryEditBtn.appendChild(t);
-      document.getElementById('container4').appendChild(entryEditBtn);
+      document.getElementById('container5').appendChild(entryEditBtn);
       // Create Comment Button
       let commentBtn = document.createElement('button');
       commentBtn.class = "btn btn-info"; // Set a class name
@@ -195,7 +207,7 @@ function getOneEntry() {
       document.getElementsByClassName("btn btn-info").onclick = createCommentForm;
       let c = document.createTextNode('Comment');
       commentBtn.appendChild(c);
-      document.getElementById('container4').appendChild(commentBtn);
+      document.getElementById('container5').appendChild(commentBtn);
       // Create Delete Button
       let entryDeleteBtn = document.createElement('button');
       entryDeleteBtn.class = "btn btn-danger"; // Set a class name
@@ -205,7 +217,7 @@ function getOneEntry() {
       document.getElementsByClassName("btn btn-danger").onclick = deleteEntry;
       let b = document.createTextNode('Delete');
       entryDeleteBtn.appendChild(b);
-      document.getElementById('container4').appendChild(entryDeleteBtn);
+      document.getElementById('container5').appendChild(entryDeleteBtn);
     });
 }
 
@@ -214,14 +226,19 @@ function getOneComment() {
     fetch('api/comments/' + ID)
     .then(res => res.json())
     .then(comments => {
+      // Create H2 headertext
+      let header = document.createElement('h2');
+      let h = document.createTextNode('Comment');
+      header.appendChild(h);
+      document.getElementById('container6').appendChild(header);
       let p1 = document.createElement('p');
       let p2 = document.createElement('p');
       let t1 = document.createTextNode('Content: ' + comments.content);
       let t2 = document.createTextNode('Created By: ' + comments.createdBy);
       p1.appendChild(t1);
       p2.appendChild(t2);
-      document.getElementById('container4').appendChild(p1);
-      document.getElementById('container4').appendChild(p2);
+      document.getElementById('container6').appendChild(p1);
+      document.getElementById('container6').appendChild(p2);
       // Create Delete Button
       let commentDeleteBtn = document.createElement('button');
       commentDeleteBtn.class = "btn btn-danger"; // Set a class name
@@ -231,7 +248,7 @@ function getOneComment() {
       document.getElementsByClassName("btn btn-danger").onclick = deleteComment;
       let b = document.createTextNode('Delete');
       commentDeleteBtn.appendChild(b);
-      document.getElementById('container4').appendChild(commentDeleteBtn);
+      document.getElementById('container6').appendChild(commentDeleteBtn);
     });
 }
 
@@ -393,7 +410,7 @@ function newEntry() {
      i.setAttribute('name', "content");
      i.setAttribute('placeholder', "Content");
      i.setAttribute('class', "form-control");
-     i.setAttribute('id', "newComment");
+     i.setAttribute('id', "newContent");
      // Create submit button
      let s = document.createElement("input");
      s.setAttribute('type', "submit");
@@ -409,6 +426,13 @@ function newEntry() {
 
    function newComment() {
      alert('Hi from comment Function!');
+   }
+
+   function validateForm() {
+     if(document.getElementsByClassName("form-control").value.length == 0)
+{
+    alert("No empty fields")
+}
    }
 
 
