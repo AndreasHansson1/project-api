@@ -6,6 +6,47 @@
 
 // main();
 
+function newUser() {
+  let username = document.getElementById('newUsername').value;
+  let password = document.getElementById('newPassword').value;
+  let createdAt = new Date();
+
+  let data = {
+    'username': username,
+    'password': password,
+    'createdAt': createdAt
+  };
+
+  fetch('/register', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
+function login() {
+  let username = document.getElementById('loginUsername').value;
+  let password = document.getElementById('loginPassword').value;
+  alert(username);
+
+  let data = {
+    'username': username,
+    'password': password
+  };
+
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
 function getAllUsers() {
   fetch('api/users')
 
@@ -296,11 +337,13 @@ function newEntry() {
     let title = document.getElementById('newTitle').value;
     let content = document.getElementById('newContent').value;
     let createdBy = 3;
+    let createdAt = new Date();
     
     let data = {
         'title': title,
         'content': content,
-        'createdBy': createdBy
+        'createdBy': createdBy,
+        'createdAt': createdAt
     };
     
     fetch('api/entries', {
@@ -427,11 +470,11 @@ function newEntry() {
    function newComment() {
      alert('Hi from comment Function!');
    }
-
+   // Validation function so you cant leave empty fields in form. Not working yet
    function validateForm() {
      if(document.getElementsByClassName("form-control").value.length == 0)
 {
-    alert("No empty fields")
+    alert("No empty fields");
 }
    }
 

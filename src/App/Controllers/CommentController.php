@@ -43,17 +43,19 @@ class CommentController
     {
         $addComment = $this->db->prepare(
             'INSERT INTO comments 
-            (content)
-            VALUES (:content)'
+            (content, createdAt)
+            VALUES (:content, :createdAt)'
         );
 
         $addComment->execute([
-            ':content' => $_POST['content']
+            ':content' => $comment['content'],
+            ':createdAt' => $comment['createdAt']
             ]);
 
         return [
           'userID'    => (int)$this->db->lastInsertId(),
-          'content'   => $entry['content']
+          'content'   => $comment['content'],
+          'createdAt' => $comment['createdAt']
         ];
     }
 
