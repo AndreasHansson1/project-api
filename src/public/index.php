@@ -244,6 +244,18 @@ $app->group('/api', function () use ($app) {
     return $response->withJson(['error' => 'wrong password']);
 });
 
+    // GET ALL ENTRIES FROM A USER
+    $app->get('/users/{id}/entries', function ($request, $response, $args) {
+    $allEntriesByUser = $this->entries->allEntriesByUserID($args['id']);
+    return $response->withJson($allEntriesByUser);
+    });
+
+    // GET ALL COMMENTS ATTACHED TO AN ENTRY
+    $app->get('/entries/{id}/comments', function ($request, $response, $args) {
+    $allCommentsByEntry = $this->comments->allCommentsByEntryID($args['id']);
+    return $response->withJson($allCommentsByEntry);
+    });
+
 });
 // Add later, you need to bo logged in to see all posts: ->add($auth)
 
