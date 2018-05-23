@@ -10,7 +10,6 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (!isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
