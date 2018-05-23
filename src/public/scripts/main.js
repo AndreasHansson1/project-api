@@ -327,7 +327,7 @@ function editEntry(entryID) {
      headers: {
        "Content-Type": "application/x-www-form-urlencoded"
      },
-     body: serialize(data)
+     body: JSON.stringify(data)
    })
      .then(res => res.json())
      .then(obj => {
@@ -558,6 +558,47 @@ function allCommentsFromEntry() {
         }
     });
 }
+
+function searchEntriesByTitle() {
+  let searchWord = document.getElementById("searchTitle").value;
+  fetch('api/entries/search/' + searchWord)
+
+    .then(res => res.json())
+    .then(entries => {
+      // Create header text
+      let header = document.createElement('h2');
+      let h = document.createTextNode('Entries');
+      header.appendChild(h);
+      document.getElementById('container9').appendChild(header);
+
+      for (var key in entries) {
+
+        let title = entries[key].title;
+        let content = entries[key].content;
+        let createdBy = entries[key].createdBy;
+        let entryID = entries[key].entryID;
+        if (entries.hasOwnProperty(key)) {
+          let p1 = document.createElement('p');
+          let p2 = document.createElement('p');
+          let p3 = document.createElement('p');
+          let p4 = document.createElement('p');
+          let t1 = document.createTextNode('Title: ' + title);
+          let t2 = document.createTextNode('Content: ' + content);
+          let t3 = document.createTextNode('Created By: ' + createdBy);
+          let t4 = document.createTextNode('Entry ID: ' + entryID);
+          p1.appendChild(t1);
+          p2.appendChild(t2);
+          p3.appendChild(t3);
+          p4.appendChild(t4);
+          document.getElementById('container9').appendChild(p1);
+          document.getElementById('container9').appendChild(p2);
+          document.getElementById('container9').appendChild(p3);
+          document.getElementById('container9').appendChild(p4);
+        }
+      }
+    });
+}
+
   
 
 

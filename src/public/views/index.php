@@ -96,6 +96,11 @@
       <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="allCommentsFromEntry();" />
     </div>
+     <div class="form-group">
+      Search Title By: <input type="text" class="form-control" name="name" id="searchTitle" placeholder=" Search Word" />
+      <input type="button" name="submit" value="Search Entries" class="btn btn-primary btn-sm"
+      onclick="searchEntriesByTitle();" />
+    </div>
   </form>
 </div>
 <div class="wrapper">
@@ -107,6 +112,7 @@
     <div id="container6"></div>
     <div id="container7"></div>
     <div id="container8"></div>
+    <div id="container9"></div>
   </div>
 <?php endif; ?>
   

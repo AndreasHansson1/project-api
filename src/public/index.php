@@ -180,8 +180,9 @@ $app->group('/api', function () use ($app) {
     });
 
     // SEARCH FOR ENTRY
-    $app->get('/entries/search/[{query}]', function ($request, $response, $args) {
-        $searchEntry = $this->entries->searchEntry();
+    $app->get('/entries/search/{query}', function ($request, $response, $args) {
+        $search = $args['query'];
+        $searchEntry = $this->entries->searchEntry($search);
         return $response->withJson($searchEntry);
     });
 
@@ -238,6 +239,10 @@ $app->group('/api', function () use ($app) {
     ]);
     $user = $fetchUserStatement->fetch();
     if (password_verify($body['password'], $user['password'])) {
+        if(isset($_POST["username"]) && $_POST["password"]!=""){
+            } else {
+                echo 'No empty fields allowed!';
+            }
         $_SESSION['loggedIn'] = true;
         $_SESSION['userID'] = $user['id'];
         return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
