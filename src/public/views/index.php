@@ -10,7 +10,7 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (isset($_SESSION["loggedIn"])): ?>
+<?php if (!isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
@@ -60,6 +60,8 @@
       <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
       <input type="button" name="submit" value="New Entry" class="btn btn-primary"
       onclick="createNewEntryForm();" />
+      <input type="button" name="submit" value="Logout" class="btn btn-danger"
+      onclick="logout();" />
     </div>
     <div class="form-group">
       Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />

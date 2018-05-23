@@ -44,7 +44,9 @@ function login(event) {
     method: 'POST',
     body: formData,
     credentials: 'include'
-  }).then(res => res.json()).then(console.log);
+  }).then(() => {
+      location.href = "/";
+  });
 }
 
 function getAllUsers() {
@@ -250,6 +252,20 @@ function getOneEntry() {
     });
 }
 
+function deleteEntry($entryID) {
+  alert($entryID);
+  ID = this.id;
+  return fetch('api/entries/' + $entryID, {
+      method: 'delete'
+    })
+    .then(() => {
+      location.href = "/";
+  });
+}
+
+
+
+
 function getOneComment() {
     let ID = document.getElementById('searchCommentID').value;
     fetch('api/comments/' + ID)
@@ -281,9 +297,6 @@ function getOneComment() {
     });
 }
 
-
-
-
 function deleteEntry(ID) {
   
   ID = this.id;
@@ -294,6 +307,7 @@ function deleteEntry(ID) {
       location.href = "/";
   });
 }
+
 
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
@@ -434,8 +448,6 @@ function newEntry() {
      document.getElementById('newCommentContainer').appendChild(header);
      // Create form
      let f = document.createElement("form");
-     f.setAttribute('method', "post");
-     f.setAttribute('action', "");
      f.setAttribute('class', "form-group");
      // Create textarea
      let i = document.createElement("textarea");
@@ -459,6 +471,7 @@ function newEntry() {
    }
 
    function newComment(entryID, userID) {
+     alert(userID);
      let content = document.getElementById('newContent').value;
      let createdBy = userID;
      let createdAt = new Date();
@@ -604,4 +617,10 @@ function searchEntriesByTitle() {
         }
       }
     });
+}
+
+function logout() {
+  fetch('logout/')
+  .then(() => { location.href = "/" ;}
+  );
 }
