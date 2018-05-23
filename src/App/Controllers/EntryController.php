@@ -33,20 +33,23 @@ class EntryController
 
         $addEntry = $this->db->prepare(
             'INSERT INTO entries 
-            (title, content, createdBy)
-            VALUES (:title, :content, :createdBy)'
+            (title, content, createdBy, createdAt)
+            VALUES (:title, :content, :createdBy, :createdAt)'
         );
 
         $addEntry->execute([
-            ':title'        => $_POST['title'],
-            ':content'      => $_POST['content'],
-            ':createdBy'    => $_GET['userID']
+            ':title'        => $entry['title'],
+            ':content'      => $entry['content'],
+            ':createdBy'    => $entry['createdBy'],
+            ':createdAt'    => $entry['createdAt']
             ]);
 
         return [
-          'userID'    => (int)$this->db->lastInsertId(),
+          'createdBy'    => (int)$this->db->lastInsertId(),
           'title'     => $entry['title'],
-          'content'   => $entry['content']
+          'content'   => $entry['content'],
+          'createdAt'   => $entry['createdAt']
+          
         ];
     }
 
@@ -84,29 +87,45 @@ class EntryController
     }
 
     // Edit Entry
-    public function editEntry($edit)
+    public function editEntry($edit, $entryID)
     {
-
+        return ['edit' => $edit, 'entryID' => $entryID];
         $editEntry = $this->db->prepare(
             'UPDATE entries 
-       SET entryID     = :entryID,
-             title     = :title, 
+        SET    title   = :title, 
              content   = :content  
        WHERE entryID   = :entryID'
         );
 
-        $editEntry->execute([
-            // ':entryID' => $_GET['entryID'],
-            ':entryID' => $edit['entryID'],
-            ':title'   => $edit['title'],
-            ':content' => $edit['content']
-            ]);
+        $editEntry->bindParam(':entryID', $entryID);
+        $editEntry->bindParam(':title', $edit['title']);
+        $editEntry->bindParam(':content', $edit['content']);
 
-        // return [
-        //   'entryID'   => (int)$this->db->lastInsertId(),
-        //   'title'     => $edit['title'],
-        //   'content'   => $edit['content']
-        // ];
+         $editEntry->execute();
+        //     // ':entryID' => $edit['entryID'],
+        //     // ':title'   => $edit['title'],
+        //     // ':content' => $edit['content']
+        //     ]);
+
+        return [
+          'entryID'   => $entryID,
+          'title'     => $edit['title'],
+          'content'   => $edit['content']
+        ];
 
     }
+
+    public function allEntriesByUserID($id)
+   {
+       $allEntriesByUserID = $this->db->prepare(
+       'SELECT entries.title, entries.content, entries.createdBy, entries.entryID
+       FROM entries
+       INNER JOIN users ON users.userID = entries.createdBy
+       WHERE entries.createdBy = :createdBy');
+       $allEntriesByUserID->execute([
+         ":createdBy" => $id
+       ]);
+       $allEntriesByUser = $allEntriesByUserID->fetchAll();
+       return $allEntriesByUser;
+   }
 }

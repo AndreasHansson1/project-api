@@ -10,20 +10,29 @@
   <title>Frontend</title>
 </head>
 <body>
+<<<<<<< HEAD
 <?php if (!isset($_SESSION["loggedIn"])): ?>
+=======
+<?php if (isset($_SESSION["loggedIn"])): ?>
+
+<div class="jumbotron">
+  <h1>Project API</h1>
+</div>
+
+>>>>>>> master
 <div class="container">
     <br>
     <h2>Sign Up</h2>
     <form action="" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" type="text" name="username">
+            <input class="form-control" id="newUsername" type="text" name="username">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" id="newPassword" type="password" name="password">
         </div>
-            <input type="submit" name="submit" value="Register" class="btn btn-primary">
+            <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
     </form>
     <br><br>
 
@@ -31,94 +40,69 @@
     <form action="" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" type="text" name="username">
+            <input class="form-control" id="loginUsername" type="text" name="username">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" id="loginPassword" type="password" name="password">
         </div>
-            <input type="submit" name="submit" value="Login" class="btn btn-success">
+            <input type="submit" name="submit" value="Login" class="btn btn-success" onclick="login()">
     </form>
 </div>
-    <?php else : ?>
-
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" id="users" href="PleaseEnableJavascript.html" onclick="getAllUsers();return false;"> Users <span class="sr-only">(current)</span> </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="entries" href="PleaseEnableJavascript.html" onclick="getAllEntries();return false;">Entries</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="comments"  href="PleaseEnableJavascript.html" onclick="getAllComments();return false;">Comments</a>
-      </li>
-
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+<?php else : ?>
+  <div class="jumbotron">
+    <h1>Project API</h1>
   </div>
-</nav> -->
+<div class="formContainer" id="newEntryContainer"></div> 
+<div class="formContainer" id="editEntryContainer"></div> 
+<div class="formContainer" id="newCommentContainer"></div> 
 
-
-    <div class="container">
-    <br>
-    <h1>New Entry</h1>
-      <div class="form-group">
-          <input type="text" id="newTitle" placeholder="Title">
-          <form action="" id="newContent">
-          <textarea name="content" placeholder="Content"></textarea>
-          <button type="submit" class="btn btn-success">Add</button>
-        </form>
-      </div>
-    </div>
-<div class="search_wrapper">
-
-  <form name ="getUsers" id="getUsers" action="#">
-      <input type="button" name="submit" value="Get All Users"
+<div class="container">
+  <form action="" method="get">
+    <div class="form-group">
+      <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
       onclick="getAllUsers();" />
-  </form>
-
-  <form name ="getEntries" id="getEntries" action="#">
-      Get Entries: <input type="text" name="name" id="entryQuantity" placeholder=" Quantity" />
-      <input type="button" name="submit" value="Get Entries"
+      <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
+      onclick="createNewEntryForm();" />
+    </div>
+    <div class="form-group">
+      Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />
+      <input type="button" name="submit" value="Get Entries" class="btn btn-primary btn-sm"
       onclick="getAllEntries();" />
-  </form>
-
-  <form name ="getCommants" id="getComments" action="#">
-      Get Comments: <input type="text" name="name" id="commentQuantity" placeholder=" Quantity" />
-      <input type="button" name="submit" value="Get Comments"
+    </div>
+    <div class="form-group">
+      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder=" Quantity" />
+      <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="getAllComments();" />
-  </form>
-
-  <form name ="searchUser" id="searchUser" action="#">
-      Single User: <input type="text" name="name" id="searchUserID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
+    </div>
+    <div class="form-group">
+      Single User: <input type="text" class="form-control" name="name" id="searchUserID" placeholder=" UserID" />
+      <input type="button" name="submit" value="Get User" class="btn btn-primary btn-sm"
       onclick="getOneUser();" />
-  </form>
-
-  <form name ="searchEntry" id="searchEntry" action="#">
-      Single Entry: <input type="text" name="name" id="searchEntryID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
-      onclick="getEntryID();" />
-  </form>
-
-  <form name ="searchComment" id="searchComment" action="#">
-      Single Comment: <input type="text" name="name" id="searchCommentID" placeholder=" ID" />
-      <input type="button" name="submit" value="Search"
+    </div>
+    <div class="form-group">
+      Single Entry: <input type="text" class="form-control" name="name" id="searchEntryID" placeholder=" EntryID" />
+      <input type="button" name="submit" value="Get Entry" class="btn btn-primary btn-sm"
+      onclick="getOneEntry();" />
+    </div>
+    <div class="form-group">
+      Single Comment: <input type="text" class="form-control" name="name" id="searchCommentID" placeholder=" CommentID" />
+      <input type="button" name="submit" value="Get Comment" class="btn btn-primary btn-sm"
       onclick="getOneComment();" />
+    </div>
+    <div class="form-group">
+      All Entries From User: <input type="text" class="form-control" name="name" id="allEntriesFromUser" placeholder=" UserID" />
+      <input type="button" name="submit" value="Get Entries" class="btn btn-primary btn-sm"
+      onclick="getAllEntriesByUserID();" />
+    </div>
+    <div class="form-group">
+      All Comments on A Entry: <input type="text" class="form-control" name="name" id="allCommentsFromEntryID" placeholder=" EntryID" />
+      <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
+      onclick="allCommentsFromEntry();" />
+    </div>
   </form>
 </div>
 <div class="wrapper">
-    <div id="container"></div>
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>

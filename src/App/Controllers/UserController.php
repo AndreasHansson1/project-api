@@ -25,29 +25,45 @@ class UserController
         return $getOne->fetch();
     }
 
-    public function add($todo)
+    public function add($user)
     {
-        /**
-         * Default 'completed' is false so we only need to insert the 'content'
-         */
         $addOne = $this->db->prepare(
-            'INSERT INTO todos (content) VALUES (:content)'
+            'INSERT INTO users (username, password, createdAt) VALUES (:username, :password, :createdAt)'
         );
+        $hashed = password_hash($_POST["password"], PASSWORD_DEFAULT); 
+        $addOne->execute([
+                    ':username'  => $user['username'],
+                    ':password'  => $hashed,
+                    ':createdAt' => $user['createdAt']
+                    ]);
 
-        /**
-         * Insert the value from the parameter into the database
-         */
-        $addOne->execute([':content'  => $todo['content']]);
-
-        /**
-         * A INSERT INTO does not return the created object. If we want to return it to the user
-         * that has posted the todo we must build it ourself or fetch it after we have inserted it
-         * We can always get the last inserted row in a database by calling 'lastInsertId()'-function
-         */
         return [
-          'id'          => (int)$this->db->lastInsertId(),
-          'content'     => $todo['content'],
-          'completed'   => false
+          'userID'       => (int)$this->db->lastInsertId(),
+          'username'     => $user['username'],
+          'completed'    => false
         ];
     }
+
+    public function login() {
+        if (password_verify($_POST["password"], $user["password"])) {
+            // Empty fields in form not allowed
+            if(isset($_POST["username"]) && $_POST["password"]!=""){
+            // Redirect to welcome page on sucessfull login
+            header('Location: views/index.php');
+            } else {
+                echo 'No empty fields allowed!';
+            }
+            // We must also store information in the session that we can
+            // check in the other files 'index.php' for example
+            $_SESSION["loggedIn"] = true;
+            $_SESSION["username"] = $user["username"];
+            $_SESSION["userID"] = $user["userID"];
+            
+        } else {
+            echo 'Error';
+        }
+
+    }
+
+
 }
