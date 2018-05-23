@@ -59,6 +59,8 @@
       onclick="getAllUsers();" />
       <input type="button" name="submit" value="New Entry" class="btn btn-primary"
       onclick="createNewEntryForm();" />
+      <input type="button" name="submit" value="Logout" class="btn btn-danger"
+      onclick="logout();" />
     </div>
     <div class="form-group">
       Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />

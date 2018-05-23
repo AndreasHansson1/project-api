@@ -601,3 +601,9 @@ function searchEntriesByTitle() {
       }
     });
 }
+
+function logout() {
+  fetch('logout/')
+  .then(() => { location.href = "/" ;}
+  );
+}
