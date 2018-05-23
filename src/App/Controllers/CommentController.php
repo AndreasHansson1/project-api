@@ -48,15 +48,16 @@ class CommentController
     {
         $addComment = $this->db->prepare(
             'INSERT INTO comments 
-            (content, createdAt, entryID)
-            VALUES (:content, :createdAt, :entryID)'
+            (content, createdAt, entryID, createdBy)
+            VALUES (:content, :createdAt, :entryID, :createdBy)'
         );
-
+        $userID = 13;
         $addComment->execute([
             ':content' => $comment['content'],
             ':createdAt' => $comment['createdAt'],
             ':entryID' => $comment['entryID'],
-            ':createdBy' => $_SESSION['userID']
+            // ':createdBy' => $_SESSION['userID'],
+            ':createdBy' => $userID
             ]);
 
         return [

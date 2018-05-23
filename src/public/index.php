@@ -170,7 +170,7 @@ $app->group('/api', function () use ($app) {
     $app->post('/comments', function ($request, $response, $args) { 
         
         $body = $request->getParsedBody();
-        $newComment = $this->entries->addComment($body);
+        $newComment = $this->comments->addComment($body);
         return $response->withJson($newComment);
     });
 
