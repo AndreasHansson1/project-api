@@ -57,11 +57,8 @@
     <div class="form-group">
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary"
       onclick="getAllUsers();" />
-<<<<<<< HEAD
       <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
-=======
       <input type="button" name="submit" value="New Entry" class="btn btn-primary"
->>>>>>> master
       onclick="createNewEntryForm();" />
     </div>
     <div class="form-group">
