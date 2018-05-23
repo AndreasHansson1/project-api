@@ -543,6 +543,17 @@ function getAllEntriesByUserID() {
     });
 }
 
+<<<<<<< HEAD
+
+  public function deleteEntry($entryID)
+    {
+        $deleteEntry = $this->db->prepare('DELETE FROM entries WHERE entryID = :entryID');
+        $deleteEntry->execute([':entryID' => $entryID]);
+    }
+
+function editEntry() {
+  alert('Yes!');
+=======
 function allCommentsFromEntry() {
   let ID = document.getElementById('allCommentsFromEntryID').value;
     fetch('api/entries/' + ID + '/comments')
@@ -569,6 +580,7 @@ function allCommentsFromEntry() {
           }
         }
     });
+>>>>>>> master
 }
 
 function searchEntriesByTitle() {
