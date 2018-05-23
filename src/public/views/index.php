@@ -54,7 +54,7 @@
 <div class="formContainer" id="newCommentContainer"></div> 
 
 <div class="container">
-  <form action="" method="get">
+  <form>
     <div class="form-group">
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary"
       onclick="getAllUsers();" />
