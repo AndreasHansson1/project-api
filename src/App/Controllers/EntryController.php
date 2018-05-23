@@ -86,7 +86,6 @@ class EntryController
     // Edit Entry
     public function editEntry($edit, $entryID)
     {
-        return ['edit' => $edit, 'entryID' => $entryID];
         $editEntry = $this->db->prepare(
             'UPDATE entries 
         SET    title   = :title, 

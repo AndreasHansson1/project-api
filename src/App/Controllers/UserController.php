@@ -43,27 +43,4 @@ class UserController
           'completed'    => false
         ];
     }
-
-    public function login() {
-        if (password_verify($_POST["password"], $user["password"])) {
-            // Empty fields in form not allowed
-            if(isset($_POST["username"]) && $_POST["password"]!=""){
-            // Redirect to welcome page on sucessfull login
-            header('Location: views/index.php');
-            } else {
-                echo 'No empty fields allowed!';
-            }
-            // We must also store information in the session that we can
-            // check in the other files 'index.php' for example
-            $_SESSION["loggedIn"] = true;
-            $_SESSION["username"] = $user["username"];
-            $_SESSION["userID"] = $user["userID"];
-            
-        } else {
-            echo 'Error';
-        }
-
-    }
-
-
 }

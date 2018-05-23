@@ -10,40 +10,40 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (isset($_SESSION["loggedIn"])): ?>
+<?php if (!isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
 </div>
 
 <div class="container">
-    <br>
-    <h2>Sign Up</h2>
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input class="form-control" id="newUsername" type="text" name="username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input class="form-control" id="newPassword" type="password" name="password">
-        </div>
-            <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
-    </form>
-    <br><br>
+   <br>
+   <h2>Sign Up</h2>
+   <form>
+       <div class="form-group">
+           <label for="username">Username</label>
+           <input class="form-control" id="newUsername" type="text" name="username">
+       </div>
+       <div class="form-group">
+           <label for="password">Password</label>
+           <input class="form-control" id="newPassword" type="password" name="password">
+       </div>
+           <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
+   </form>
+   <br><br>
 
-    <h2>Login</h2>
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input class="form-control" id="loginUsername" type="text" name="username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input class="form-control" id="loginPassword" type="password" name="password">
-        </div>
-            <input type="submit" name="submit" value="Login" class="btn btn-success" onclick="login()">
-    </form>
+   <h2>Login</h2>
+   <form id="loginForm">
+       <div class="form-group">
+           <label for="username">Username</label>
+           <input class="form-control" id="loginUsername" type="text" name="username">
+       </div>
+       <div class="form-group">
+           <label for="password">Password</label>
+           <input class="form-control" id="loginPassword" type="password" name="password">
+       </div>
+       <input type="submit" name="submit" value="Login" class="btn btn-success">
+   </form>
 </div>
 <?php else : ?>
   <div class="jumbotron">
@@ -56,9 +56,9 @@
 <div class="container">
   <form action="" method="get">
     <div class="form-group">
-      <input type="button"  name="submit" value="Get All Users" class="btn btn-primary btn-sm"
+      <input type="button"  name="submit" value="Get All Users" class="btn btn-primary"
       onclick="getAllUsers();" />
-      <input type="button" name="submit" value="New Entry" class="btn btn-primary btn-sm"
+      <input type="button" name="submit" value="New Entry" class="btn btn-primary"
       onclick="createNewEntryForm();" />
     </div>
     <div class="form-group">
