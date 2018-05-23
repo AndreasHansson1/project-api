@@ -6,7 +6,8 @@
 
 // main();
 
-function newUser() {
+function newUser(event) {
+  event.preventDefault();
   let username = document.getElementById('newUsername').value;
   let password = document.getElementById('newPassword').value;
   let createdAt = new Date();
@@ -19,33 +20,31 @@ function newUser() {
 
   fetch('/register', {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify(data)
+    body: data
   });
 }
 
-function login() {
+document.getElementById("loginForm").addEventListener("submit", login);
+
+function login(event) {
+  event.preventDefault();
   let username = document.getElementById('loginUsername').value;
   let password = document.getElementById('loginPassword').value;
-  alert(username);
+
+  let formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
 
   let data = {
-    'username': username,
-    'password': password
+    username: username,
+    password: password
   };
 
   fetch('/login', {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify(data),
+    body: formData,
     credentials: 'include'
-  });
+  }).then(res => res.json()).then(console.log);
 }
 
 function getAllUsers() {
@@ -316,18 +315,12 @@ function deleteEntry(ID) {
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
     let content = document.getElementById('editContent').value;
-
-     let data = {
-       'title': title,
-       'content': content
-     };
-
-   fetch("api/entries/" + entryID, {
+    fetch("api/entries/edit/" + entryID, {
      method: "PATCH",
      headers: {
        "Content-Type": "application/x-www-form-urlencoded"
      },
-     body: JSON.stringify(data)
+     body: "title=" + title + "&content=" + content
    })
      .then(res => res.json())
      .then(obj => {
@@ -417,8 +410,6 @@ function newEntry() {
    document.getElementById('editEntryContainer').appendChild(header);
    // Create form
    let f = document.createElement("form");
-   f.setAttribute('method', "patch");
-   f.setAttribute('action', "");
    f.setAttribute('class', "form-group");
    // Create input field
    let i = document.createElement("input");
