@@ -657,9 +657,7 @@ function searchEntriesByTitle() {
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           entryDeleteBtn.id = entries[key].entryID;
-          entryDeleteBtn.addEventListener("click", () => {
-            deleteEntry();
-          });
+          entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
           document.getElementById('container9').appendChild(entryDeleteBtn);
