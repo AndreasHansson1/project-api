@@ -34,7 +34,7 @@ class UserController
         $addOne->execute([
                     ':username'  => $user['username'],
                     ':password'  => $hashed,
-                    ':createdAt' => $user['createdAt']
+                    ':createdAt' => date("Y-m-d H:i:s")
                     ]);
 
         return [
