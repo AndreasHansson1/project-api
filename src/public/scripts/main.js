@@ -5,24 +5,23 @@
 // }
 
 // main();
+document.getElementById("registerForm").addEventListener("submit", newUser);
 
 function newUser(event) {
   event.preventDefault();
   let username = document.getElementById('newUsername').value;
   let password = document.getElementById('newPassword').value;
-  let createdAt = new Date();
 
-  let data = {
-    'username': username,
-    'password': password,
-    'createdAt': createdAt
-  };
-  console.log(data);
-
+  let formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password); 
+  
   fetch('/register', {
     method: 'POST',
-    body: data
-  });
+    body: formData
+  }).then(() => {
+      location.href = "/";
+  })
 }
 
 document.getElementById("loginForm").addEventListener("submit", login);

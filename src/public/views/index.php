@@ -19,7 +19,7 @@
 <div class="container">
    <br>
    <h2>Sign Up</h2>
-   <form>
+   <form id="registerForm">
        <div class="form-group">
            <label for="username">Username</label>
            <input class="form-control" id="newUsername" type="text" name="username">
@@ -28,7 +28,7 @@
            <label for="password">Password</label>
            <input class="form-control" id="newPassword" type="password" name="password">
        </div>
-           <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
+           <input type="submit" name="submit" value="Register" class="btn btn-primary">
    </form>
    <br><br>
 
