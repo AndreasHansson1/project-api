@@ -67,7 +67,7 @@
       onclick="getAllEntries();" />
     </div>
     <div class="form-group">
-      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder=" Quantity" />
+      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder="Quantity" />
       <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="getAllComments();" />
     </div>
