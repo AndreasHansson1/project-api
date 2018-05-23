@@ -14,6 +14,7 @@ body, html {
   max-width: 100%
 }
 
+<<<<<<< HEAD
 #newEntryContainer {
   display: flex;
   flex-direction: column;
@@ -26,6 +27,11 @@ body, html {
 .formContainer {
   max-width: 30%;
   margin: 2rem;
+
+.wrapper_all {
+  display: flex;
+  width: 100%;
+>>>>>>> master
 }
 
 .wrapper {
@@ -33,6 +39,24 @@ body, html {
   text-align: center;
   justify-content: center;  
   padding: 2rem;
+  width: 35%;
+  margin: 1rem auto;
+}
+
+.wrapper_form {
+  padding: 2rem;
+  width: 26%;
+  margin: 1rem auto;
+}
+
+.div {
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.para {
+  font-weight: bold;
 }
 
 h1 {
