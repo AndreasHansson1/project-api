@@ -281,13 +281,18 @@ function getOneComment() {
     });
 }
 
+
+
+
 function deleteEntry(ID) {
-  alert('Entry Deleted!');
+  
   ID = this.id;
   return fetch('api/entries/' + ID, {
       method: 'delete'
     })
-    .then(res => res.json());
+    .then(() => {
+      location.href = "/";
+  });
 }
 
 // function editEntry(entryID) {
@@ -329,12 +334,15 @@ function editEntry(entryID) {
 }
 
 function deleteComment(ID) {
-  alert('Comment Deleted!');
+  
   ID = this.id;
   return fetch('api/comments/' + ID, {
       method: 'delete'
       })
-      .then(res => res.json());
+      //.then(res => res.json());
+      .then(() => {
+      location.href = "/";
+  });
 }
 
 function newEntry() {
