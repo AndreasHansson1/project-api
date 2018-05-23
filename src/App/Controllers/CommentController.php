@@ -39,7 +39,7 @@ class CommentController
         $deleteComment->execute([':commentID' => $commentID]);
     }
 
-    public function add($comment)
+    public function addComment($comment)
     {
         $addComment = $this->db->prepare(
             'INSERT INTO comments 
