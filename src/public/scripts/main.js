@@ -21,7 +21,7 @@ function newUser(event) {
     body: formData
   }).then(() => {
       location.href = "/";
-  })
+  });
 }
 
 document.getElementById("loginForm").addEventListener("submit", login);
