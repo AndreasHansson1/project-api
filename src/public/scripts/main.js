@@ -252,6 +252,20 @@ function getOneEntry() {
     });
 }
 
+function deleteEntry($entryID) {
+  alert($entryID);
+  ID = this.id;
+  return fetch('api/entries/' + $entryID, {
+      method: 'delete'
+    })
+    .then(() => {
+      location.href = "/";
+  });
+}
+
+
+
+
 function getOneComment() {
     let ID = document.getElementById('searchCommentID').value;
     fetch('api/comments/' + ID)
@@ -286,16 +300,7 @@ function getOneComment() {
 
 
 
-function deleteEntry(ID) {
-  
-  ID = this.id;
-  return fetch('api/entries/' + ID, {
-      method: 'delete'
-    })
-    .then(() => {
-      location.href = "/";
-  });
-}
+
 
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
