@@ -44,7 +44,9 @@ function login(event) {
     method: 'POST',
     body: formData,
     credentials: 'include'
-  }).then(res => res.json()).then(console.log);
+  }).then(() => {
+      location.href = "/";
+  });
 }
 
 function getAllUsers() {
