@@ -290,28 +290,6 @@ function deleteEntry(ID) {
     .then(res => res.json());
 }
 
-// function editEntry(entryID) {
-//   let title = document.getElementById('editTitle').value;
-//   let content = document.getElementById('editContent').value;
-
-//   let data = {
-//     'title': title,
-//     'content': content
-//   };
-
-//   fetch("api/entries/" + entryID, {
-//     method: "PATCH",
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       'title': title,
-//       'content': content
-//     })
-//   });
-// }
-
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
     let content = document.getElementById('editContent').value;
@@ -495,14 +473,6 @@ function newEntry() {
        .then((res) => res.json())
        .then(data);
    }
-   
-   // Validation function so you cant leave empty fields in form. Not working yet
-   function validateForm() {
-     if(document.getElementsByClassName("form-control").value.length == 0)
-  {
-    alert("No empty fields");
-  }
-}
 
 function getAllEntriesByUserID() {
   let ID = document.getElementById("allEntriesFromUser").value;
@@ -626,5 +596,4 @@ function searchEntriesByTitle() {
         }
       }
     });
-}
 }
