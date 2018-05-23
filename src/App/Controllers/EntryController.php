@@ -75,21 +75,17 @@ class EntryController
     // Search for entry
      public function searchEntry($search)
      {
-        $search = $this->db->prepare(
+        $searchResult = $this->db->prepare(
            'SELECT * FROM entries 
-            WHERE UPPER(title) 
-            LIKE :query ORDER BY title');
-
-        $query = "%".$args['query']."%";
-        $search->bindParam("query", $query);
-        $search->execute();
-        return $search->fetchAll();
+            WHERE title LIKE :title');
+        
+        $searchResult->execute([":title" => "%".$search."%"]);
+        return $searchResult->fetchAll();
     }
 
     // Edit Entry
     public function editEntry($edit, $entryID)
     {
-        return ['edit' => $edit, 'entryID' => $entryID];
         $editEntry = $this->db->prepare(
             'UPDATE entries 
         SET    title   = :title, 

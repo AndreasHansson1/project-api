@@ -27,21 +27,20 @@ class UserController
 
     public function add($user)
     {
-        
         $addOne = $this->db->prepare(
             'INSERT INTO users (username, password, createdAt) VALUES (:username, :password, :createdAt)'
         );
-
+        $hashed = password_hash($_POST["password"], PASSWORD_DEFAULT); 
         $addOne->execute([
                     ':username'  => $user['username'],
-                    ':password'  => $user['password'],
-                    ':createdAt'  => $user['createdAt']
+                    ':password'  => $hashed,
+                    ':createdAt' => $user['createdAt']
                     ]);
 
         return [
-          'userID'          => (int)$this->db->lastInsertId(),
+          'userID'       => (int)$this->db->lastInsertId(),
           'username'     => $user['username'],
-          'completed'   => false
+          'completed'    => false
         ];
     }
 }

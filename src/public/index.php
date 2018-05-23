@@ -41,27 +41,24 @@ $app->post('/register', function ($request, $response, $args) {
        
     $body = $request->getParsedBody();
     $newUser = $this->users->add($body);
-    return $response->withJson(['data' => $newUser]);
+    return $response->withJson($newUser);
 });
 
-/**
- * I added basic inline login functionality. This could be extracted to a
- * separate class. If the session is set is checked in 'auth.php'
- */
+
 $app->post('/login', function ($request, $response, $args) {
-    
-    $body = $request->getParsedBody();
-    $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
-    $fetchUserStatement->execute([
-        ':username' => $body['username']
-    ]);
-    $user = $fetchUserStatement->fetch();
-    if (password_verify($body['password'], $user['password'])) {
-        $_SESSION['loggedIn'] = true;
-        $_SESSION['userID'] = $user['id'];
-        return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
-    }
-    return $response->withJson(['error' => 'wrong password']);
+   
+   $body = $request->getParsedBody();
+   $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
+   $fetchUserStatement->execute([
+       ':username' => $body['username']
+   ]);
+   $user = $fetchUserStatement->fetch();
+   if (password_verify($body['password'], $user['password'])) {
+       $_SESSION['loggedIn'] = true;
+       $_SESSION['userID'] = $user['id'];
+       return $response->withJson([ $user['id'], $user['username'] ]);
+   }
+   return $response->withJson(['error' => 'wrong password']);
 });
 
 /**
@@ -180,8 +177,9 @@ $app->group('/api', function () use ($app) {
     });
 
     // SEARCH FOR ENTRY
-    $app->get('/entries/search/[{query}]', function ($request, $response, $args) {
-        $searchEntry = $this->entries->searchEntry();
+    $app->get('/entries/search/{query}', function ($request, $response, $args) {
+        $search = $args['query'];
+        $searchEntry = $this->entries->searchEntry($search);
         return $response->withJson($searchEntry);
     });
 
@@ -217,7 +215,6 @@ $app->group('/api', function () use ($app) {
         $body = $request->getParsedBody();
         $editEntry = $this->entries->editEntry($body, $entryID);
         return $response->withJson($editEntry);
-        echo 'Updated Entry!';
     });
 
     // POST COMMENT
@@ -228,21 +225,26 @@ $app->group('/api', function () use ($app) {
         return $response->withJson($newComment);
     });
 
-    $app->post('/login', function ($request, $response, $args) {
+    // LOGIN
+//     $app->post('/login', function ($request, $response, $args) {
     
-    $body = $request->getParsedBody();
-    $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
-    $fetchUserStatement->execute([
-        ':username' => $body['username']
-    ]);
-    $user = $fetchUserStatement->fetch();
-    if (password_verify($body['password'], $user['password'])) {
-        $_SESSION['loggedIn'] = true;
-        $_SESSION['userID'] = $user['id'];
-        return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
-    }
-    return $response->withJson(['error' => 'wrong password']);
-});
+//     $body = $request->getParsedBody();
+//     $fetchUserStatement = $this->db->prepare('SELECT * FROM users WHERE username = :username');
+//     $fetchUserStatement->execute([
+//         ':username' => $body['username']
+//     ]);
+//     $user = $fetchUserStatement->fetch();
+//     if (password_verify($body['password'], $user['password'])) {
+//         if(isset($_POST["username"]) && $_POST["password"]!=""){
+//             } else {
+//                 echo 'No empty fields allowed!';
+//             }
+//         $_SESSION['loggedIn'] = true;
+//         $_SESSION['userID'] = $user['id'];
+//         return $response->withJson(['data' => [ $user['id'], $user['username'] ]]);
+//     }
+//     return $response->withJson(['error' => 'wrong password']);
+// });
 
     // GET ALL ENTRIES FROM A USER
     $app->get('/users/{id}/entries', function ($request, $response, $args) {
@@ -257,6 +259,6 @@ $app->group('/api', function () use ($app) {
     });
 
 });
-// Add later, you need to bo logged in to see all posts: ->add($auth)
+// add($auth);
 
 $app->run();
