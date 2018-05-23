@@ -363,7 +363,7 @@ function newEntry() {
   }
 
   function createNewEntryForm() {
-    alert('hello');
+    
     // Create H2 headertext
     let header = document.createElement('h2');
     let h = document.createTextNode('New Entry');
@@ -371,8 +371,8 @@ function newEntry() {
     document.getElementById('newEntryContainer').appendChild(header);
     // Create form
     let f = document.createElement("form");
-    f.setAttribute('method', "post");
-    f.setAttribute('action', "");
+    
+    //f.setAttribute('action', "");
     f.setAttribute('class', "form-group");
     // Create input field
     let i = document.createElement("input");
@@ -614,14 +614,7 @@ function searchEntriesByTitle() {
   
 
 
- function serialize(obj) {
-  var str = [];
-  for (var p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    }
-  return str.join("&");
-}
+
 
 
 
