@@ -10,7 +10,7 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (!isset($_SESSION["loggedIn"])): ?>
+<?php if (isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
@@ -47,11 +47,11 @@
 <?php else : ?>
   <div class="jumbotron">
     <h1>Project API</h1>
+    <input type="button" name="submit" value="Logout" class="btn btn-danger"
+      onclick="logout();" />
   </div>
-<div class="formContainer" id="newEntryContainer"></div> 
-<div class="formContainer" id="editEntryContainer"></div> 
-<div class="formContainer" id="newCommentContainer"></div> 
-
+<div class="wrapper_all">
+<div class="wrapper">
 <div class="container">
   <form>
     <div class="form-group">
@@ -59,8 +59,6 @@
       onclick="getAllUsers();" />
       <input type="button" name="submit" value="New Entry" class="btn btn-primary"
       onclick="createNewEntryForm();" />
-      <input type="button" name="submit" value="Logout" class="btn btn-danger"
-      onclick="logout();" />
     </div>
     <div class="form-group">
       Get Entries: <input type="text" class="form-control" name="name" id="entryQuantity" placeholder=" Quantity" />
@@ -104,7 +102,8 @@
     </div>
   </form>
 </div>
-<div class="wrapper">
+</div>
+<div class="wrapper"> 
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>
@@ -114,7 +113,13 @@
     <div id="container7"></div>
     <div id="container8"></div>
     <div id="container9"></div>
-  </div>
+</div>
+<div class="wrapper_form">
+    <div class="formContainer" id="editEntryContainer"></div> 
+    <div class="formContainer" id="newCommentContainer"></div>
+    <div class="formContainer" id="newEntryContainer"></div>
+</div>
+</div>
 <?php endif; ?>
   
   <script src="scripts/main.js"></script>
