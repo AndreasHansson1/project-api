@@ -281,9 +281,6 @@ function getOneComment() {
     });
 }
 
-
-
-
 function deleteEntry(ID) {
   
   ID = this.id;
@@ -434,8 +431,6 @@ function newEntry() {
      document.getElementById('newCommentContainer').appendChild(header);
      // Create form
      let f = document.createElement("form");
-     f.setAttribute('method', "post");
-     f.setAttribute('action', "");
      f.setAttribute('class', "form-group");
      // Create textarea
      let i = document.createElement("textarea");
@@ -459,6 +454,7 @@ function newEntry() {
    }
 
    function newComment(entryID, userID) {
+     alert(userID);
      let content = document.getElementById('newContent').value;
      let createdBy = userID;
      let createdAt = new Date();
