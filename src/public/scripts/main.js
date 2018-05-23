@@ -11,11 +11,11 @@ function newUser(event) {
   event.preventDefault();
   let username = document.getElementById('newUsername').value;
   let password = document.getElementById('newPassword').value;
-    
+
   let formData = new FormData();
   formData.append('username', username);
   formData.append('password', password); 
-
+  
   fetch('/register', {
     method: 'POST',
     body: formData
@@ -235,7 +235,7 @@ function getOneEntry() {
       // Create Comment Button
       let commentBtn = document.createElement('button');
       commentBtn.setAttribute("class", "btn btn-info btn-sm");
-      commentBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+      commentBtn.addEventListener('click', () => { createCommentForm(entryID, createdBy); });
       let c = document.createTextNode('Comment');
       commentBtn.appendChild(c);
       document.getElementById('container5').appendChild(commentBtn);
@@ -441,7 +441,6 @@ function newEntry() {
    }
 
    function createCommentForm(entryID, createdBy) {
-     alert(createdBy);
      // Create H2 headertext
      let header = document.createElement('h2');
      let h = document.createTextNode('Comment');
@@ -464,7 +463,8 @@ function newEntry() {
      s.setAttribute('type', "submit");
      s.setAttribute('value', "Submit");
      s.setAttribute('class', "btn btn-success");
-     s.setAttribute('onclick', "newComment()");
+     s.addEventListener("click", () => { newComment(entryID, createdBy);
+     });
 
      f.appendChild(i);
      f.appendChild(s);
@@ -472,9 +472,30 @@ function newEntry() {
      document.getElementById("newCommentContainer").appendChild(f);
    }
 
-   function newComment() {
-     alert('Hi from comment Function!');
+   function newComment(entryID, userID) {
+     let content = document.getElementById('newContent').value;
+     let createdBy = userID;
+     let createdAt = new Date();
+
+     let data = {
+       'content': content,
+       'createdBy': createdBy,
+       'createdAt': createdAt,
+       'entryID': entryID
+     };
+
+     fetch('api/comments', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json, text/plain, */*',
+         'Content-type': 'application/json'
+       },
+       body: JSON.stringify(data)
+     })
+       .then((res) => res.json())
+       .then(data);
    }
+   
    // Validation function so you cant leave empty fields in form. Not working yet
    function validateForm() {
      if(document.getElementsByClassName("form-control").value.length == 0)
