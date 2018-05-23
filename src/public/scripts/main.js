@@ -551,6 +551,22 @@ function getAllEntriesByUserID() {
     });
 }
 
+function editEntry(entryID) {
+  let title = document.getElementById('editTitle').value;
+  let content = document.getElementById('editContent').value;
+  fetch("api/entries/edit/" + entryID, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "title=" + title + "&content=" + content
+    })
+    .then(res => res.json())
+    .then(obj => {
+      alert(JSON.stringify(obj));
+    });
+}
+
 function allCommentsFromEntry() {
   let ID = document.getElementById('allCommentsFromEntryID').value;
     fetch('api/entries/' + ID + '/comments')
@@ -577,6 +593,7 @@ function allCommentsFromEntry() {
           }
         }
     });
+
 }
 
 function searchEntriesByTitle() {
@@ -618,13 +635,4 @@ function searchEntriesByTitle() {
       }
     });
 }
-
-  
-
-
-
-
-
-
-
-
+}

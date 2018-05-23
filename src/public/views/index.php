@@ -15,7 +15,6 @@
 <div class="jumbotron">
   <h1>Project API</h1>
 </div>
-
 <div class="container">
    <br>
    <h2>Sign Up</h2>
