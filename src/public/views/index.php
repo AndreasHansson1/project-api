@@ -10,16 +10,15 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (!isset($_SESSION["loggedIn"])): ?>
+<?php if (isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
 </div>
-
 <div class="container">
    <br>
    <h2>Sign Up</h2>
-   <form>
+   <form id="registerForm">
        <div class="form-group">
            <label for="username">Username</label>
            <input class="form-control" id="newUsername" type="text" name="username">
@@ -28,7 +27,7 @@
            <label for="password">Password</label>
            <input class="form-control" id="newPassword" type="password" name="password">
        </div>
-           <input type="submit" name="submit" value="Register" class="btn btn-primary" onclick="newUser()">
+           <input type="submit" name="submit" value="Register" class="btn btn-primary">
    </form>
    <br><br>
 
@@ -54,7 +53,7 @@
 <div class="formContainer" id="newCommentContainer"></div> 
 
 <div class="container">
-  <form action="" method="get">
+  <form>
     <div class="form-group">
       <input type="button"  name="submit" value="Get All Users" class="btn btn-primary"
       onclick="getAllUsers();" />
@@ -71,7 +70,7 @@
       onclick="getAllEntries();" />
     </div>
     <div class="form-group">
-      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder=" Quantity" />
+      Get Comments: <input type="text" class="form-control" name="name" id="commentQuantity" placeholder="Quantity" />
       <input type="button" name="submit" value="Get Comments" class="btn btn-primary btn-sm"
       onclick="getAllComments();" />
     </div>

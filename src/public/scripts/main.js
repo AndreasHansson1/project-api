@@ -5,22 +5,22 @@
 // }
 
 // main();
+document.getElementById("registerForm").addEventListener("submit", newUser);
 
 function newUser(event) {
   event.preventDefault();
   let username = document.getElementById('newUsername').value;
   let password = document.getElementById('newPassword').value;
-  let createdAt = new Date();
 
-  let data = {
-    'username': username,
-    'password': password,
-    'createdAt': createdAt
-  };
-
+  let formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password); 
+  
   fetch('/register', {
     method: 'POST',
-    body: data
+    body: formData
+  }).then(() => {
+      location.href = "/";
   });
 }
 
@@ -235,7 +235,7 @@ function getOneEntry() {
       // Create Comment Button
       let commentBtn = document.createElement('button');
       commentBtn.setAttribute("class", "btn btn-info btn-sm");
-      commentBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+      commentBtn.addEventListener('click', () => { createCommentForm(entryID, createdBy); });
       let c = document.createTextNode('Comment');
       commentBtn.appendChild(c);
       document.getElementById('container5').appendChild(commentBtn);
@@ -281,36 +281,19 @@ function getOneComment() {
     });
 }
 
+
+
+
 function deleteEntry(ID) {
-  alert('Entry Deleted!');
+  
   ID = this.id;
   return fetch('api/entries/' + ID, {
       method: 'delete'
     })
-    .then(res => res.json());
+    .then(() => {
+      location.href = "/";
+  });
 }
-
-// function editEntry(entryID) {
-//   let title = document.getElementById('editTitle').value;
-//   let content = document.getElementById('editContent').value;
-
-//   let data = {
-//     'title': title,
-//     'content': content
-//   };
-
-//   fetch("api/entries/" + entryID, {
-//     method: "PATCH",
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       'title': title,
-//       'content': content
-//     })
-//   });
-// }
 
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
@@ -329,12 +312,15 @@ function editEntry(entryID) {
 }
 
 function deleteComment(ID) {
-  alert('Comment Deleted!');
+  
   ID = this.id;
   return fetch('api/comments/' + ID, {
       method: 'delete'
       })
-      .then(res => res.json());
+      //.then(res => res.json());
+      .then(() => {
+      location.href = "/";
+  });
 }
 
 function newEntry() {
@@ -363,7 +349,7 @@ function newEntry() {
   }
 
   function createNewEntryForm() {
-    alert('hello');
+    
     // Create H2 headertext
     let header = document.createElement('h2');
     let h = document.createTextNode('New Entry');
@@ -371,8 +357,8 @@ function newEntry() {
     document.getElementById('newEntryContainer').appendChild(header);
     // Create form
     let f = document.createElement("form");
-    f.setAttribute('method', "post");
-    f.setAttribute('action', "");
+    
+    //f.setAttribute('action', "");
     f.setAttribute('class', "form-group");
     // Create input field
     let i = document.createElement("input");
@@ -441,7 +427,6 @@ function newEntry() {
    }
 
    function createCommentForm(entryID, createdBy) {
-     alert(createdBy);
      // Create H2 headertext
      let header = document.createElement('h2');
      let h = document.createTextNode('Comment');
@@ -464,7 +449,8 @@ function newEntry() {
      s.setAttribute('type', "submit");
      s.setAttribute('value', "Submit");
      s.setAttribute('class', "btn btn-success");
-     s.setAttribute('onclick', "newComment()");
+     s.addEventListener("click", () => { newComment(entryID, createdBy);
+     });
 
      f.appendChild(i);
      f.appendChild(s);
@@ -472,16 +458,29 @@ function newEntry() {
      document.getElementById("newCommentContainer").appendChild(f);
    }
 
-   function newComment() {
-     alert('Hi from comment Function!');
+   function newComment(entryID, userID) {
+     let content = document.getElementById('newContent').value;
+     let createdBy = userID;
+     let createdAt = new Date();
+
+     let data = {
+       'content': content,
+       'createdBy': createdBy,
+       'createdAt': createdAt,
+       'entryID': entryID
+     };
+
+     fetch('api/comments', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json, text/plain, */*',
+         'Content-type': 'application/json'
+       },
+       body: JSON.stringify(data)
+     })
+       .then((res) => res.json())
+       .then(data);
    }
-   // Validation function so you cant leave empty fields in form. Not working yet
-   function validateForm() {
-     if(document.getElementsByClassName("form-control").value.length == 0)
-  {
-    alert("No empty fields");
-  }
-}
 
 function getAllEntriesByUserID() {
   let ID = document.getElementById("allEntriesFromUser").value;
@@ -522,6 +521,22 @@ function getAllEntriesByUserID() {
     });
 }
 
+function editEntry(entryID) {
+  let title = document.getElementById('editTitle').value;
+  let content = document.getElementById('editContent').value;
+  fetch("api/entries/edit/" + entryID, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "title=" + title + "&content=" + content
+    })
+    .then(res => res.json())
+    .then(obj => {
+      alert(JSON.stringify(obj));
+    });
+}
+
 function allCommentsFromEntry() {
   let ID = document.getElementById('allCommentsFromEntryID').value;
     fetch('api/entries/' + ID + '/comments')
@@ -548,6 +563,7 @@ function allCommentsFromEntry() {
           }
         }
     });
+
 }
 
 function searchEntriesByTitle() {
@@ -589,20 +605,3 @@ function searchEntriesByTitle() {
       }
     });
 }
-
-  
-
-
- function serialize(obj) {
-  var str = [];
-  for (var p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-    }
-  return str.join("&");
-}
-
-
-
-
-

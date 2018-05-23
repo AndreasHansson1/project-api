@@ -1,6 +1,11 @@
 <?php
-
 namespace App\Controllers;
+if (session_status() == PHP_SESSION_NONE) {
+    session_set_cookie_params(3600);
+    session_start();
+}
+
+//namespace App\Controllers;
 
 class CommentController
 {
@@ -39,17 +44,19 @@ class CommentController
         $deleteComment->execute([':commentID' => $commentID]);
     }
 
-    public function add($comment)
+    public function addComment($comment)
     {
         $addComment = $this->db->prepare(
             'INSERT INTO comments 
-            (content, createdAt)
-            VALUES (:content, :createdAt)'
+            (content, createdAt, entryID)
+            VALUES (:content, :createdAt, :entryID)'
         );
 
         $addComment->execute([
             ':content' => $comment['content'],
-            ':createdAt' => $comment['createdAt']
+            ':createdAt' => $comment['createdAt'],
+            ':entryID' => $comment['entryID'],
+            ':createdBy' => $_SESSION['userID']
             ]);
 
         return [
