@@ -10,7 +10,7 @@
   <title>Frontend</title>
 </head>
 <body>
-<?php if (isset($_SESSION["loggedIn"])): ?>
+<?php if (!isset($_SESSION["loggedIn"])): ?>
 
 <div class="jumbotron">
   <h1>Project API</h1>
@@ -51,7 +51,7 @@
       onclick="logout();" />
   </div>
 <div class="wrapper_all">
-<div class="wrapper">
+<div class="wrapper1">
 <div class="container">
   <form>
     <div class="form-group">
@@ -103,7 +103,7 @@
   </form>
 </div>
 </div>
-<div class="wrapper"> 
+<div class="wrapper2"> 
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>
