@@ -297,17 +297,6 @@ function getOneComment() {
     });
 }
 
-function deleteEntry(ID) {
-  
-  ID = this.id;
-  return fetch('api/entries/' + ID, {
-      method: 'delete'
-    })
-    .then(() => {
-      location.href = "/";
-  });
-}
-
 
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
