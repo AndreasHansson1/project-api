@@ -570,11 +570,9 @@ function editEntry(entryID) {
       },
       body: "title=" + title + "&content=" + content
     })
-    .then(res => res.json())
-    .then(obj => {
-      alert(JSON.stringify(obj));
-    });
-}
+    .then((res) => res.json());
+    }
+
 
 function allCommentsFromEntry() {
   let ID = document.getElementById('allCommentsFromEntryID').value;
