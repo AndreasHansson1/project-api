@@ -70,7 +70,7 @@ class CommentController
     public function allCommentsByEntryID($id)
     {
         $allCommentsByEntryID = $this->db->prepare(
-        "SELECT comments.content 
+        "SELECT comments.content
         FROM comments
         INNER JOIN entries ON entries.entryID = comments.entryID
         WHERE entries.entryID = :entryID");
