@@ -315,7 +315,7 @@ function editEntry(entryID) {
 }
 
 function deleteComment(commentID) {
-  alert(commentID);
+
   return fetch('api/comments/' + commentID, {
       method: 'delete'
       })
@@ -428,6 +428,7 @@ function newEntry() {
    }
 
    function createCommentForm(entryID, createdBy) {
+     alert('function');
      // Create H2 headertext
      let header = document.createElement('h2');
      let h = document.createTextNode('Comment');
@@ -483,7 +484,6 @@ function getAllEntriesByUserID() {
   fetch('api/users/' + ID + '/entries')
     .then(res => res.json())
     .then(entries => {
-      console.log(entries);
       // Create H2 headertext
       let header = document.createElement('h2');
       let h = document.createTextNode('Entries');
