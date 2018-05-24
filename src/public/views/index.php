@@ -120,6 +120,9 @@
     <div class="formContainer" id="newEntryContainer"></div>
 </div>
 </div>
+<footer>
+  <p>Made By: Joel, Lars & Andreas</p>
+</footer>
 <?php endif; ?>
   
   <script src="scripts/main.js"></script>

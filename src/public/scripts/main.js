@@ -99,7 +99,7 @@ function getAllEntries() {
         
         let title = entries[key].title;
         let content = entries[key].content;
-        let createdBy = entries[key].createdBy;
+        let createdAt = entries[key].createdAt;
         let entryID = entries[key].entryID;
         if (entries.hasOwnProperty(key)) {
           let p1 = document.createElement('p');
@@ -108,7 +108,7 @@ function getAllEntries() {
           let p4 = document.createElement('p');
           let t1 = document.createTextNode('Title: ' + title);
           let t2 = document.createTextNode('Content: ' + content);
-          let t3 = document.createTextNode('Created By: ' + createdBy);
+          let t3 = document.createTextNode('Created At: ' + createdAt);
           let t4 = document.createTextNode('Entry ID: ' + entryID);
           p1.appendChild(t1);
           p2.appendChild(t2);
@@ -121,14 +121,14 @@ function getAllEntries() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
-          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID); });
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
           document.getElementById('container2').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
-          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container2').appendChild(commentBtn);
@@ -136,7 +136,7 @@ function getAllEntries() {
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           entryDeleteBtn.id = entries[key].entryID;
-          entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
+          entryDeleteBtn.addEventListener("click", () => { deleteEntry(entryID); });
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
           document.getElementById('container2').appendChild(entryDeleteBtn);
@@ -156,6 +156,7 @@ function getAllComments() {
       header.appendChild(h);
       document.getElementById('container3').appendChild(header);
       for (var key in comments) {
+        let commentID = comments[key].commentID;
         let content = comments[key].content;
         let createdBy = comments[key].createdBy;
         if (comments.hasOwnProperty(key)) {
@@ -171,7 +172,7 @@ function getAllComments() {
           let commentDeleteBtn = document.createElement('button');
           commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           commentDeleteBtn.id = comments[key].commentID;
-          commentDeleteBtn.addEventListener("click", () => { deleteComment(); });
+          commentDeleteBtn.addEventListener("click", () => { deleteComment(commentID); });
           let b = document.createTextNode('Delete');
           commentDeleteBtn.appendChild(b);
           document.getElementById('container3').appendChild(commentDeleteBtn);
@@ -202,9 +203,9 @@ function getOneUser() {
     });
 }
 
-function getOneEntry() {
-  let ID = document.getElementById('searchEntryID').value;
-  fetch('api/entries/' + ID)
+function getOneEntry(entryID) {
+  entryID = document.getElementById('searchEntryID').value;
+  fetch('api/entries/' + entryID)
     .then(res => res.json())
     .then(entries => {
       let title = entries.title;
@@ -251,27 +252,16 @@ function getOneEntry() {
       let entryDeleteBtn = document.createElement('button');
       entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
       entryDeleteBtn.id = entries.entryID;
-      entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
+      entryDeleteBtn.addEventListener("click", () => { deleteEntry(entryID); });
       let b = document.createTextNode('Delete');
       entryDeleteBtn.appendChild(b);
       document.getElementById('container5').appendChild(entryDeleteBtn);
     });
 }
 
-function deleteEntry($entryID) {
-  alert($entryID);
-  ID = this.id;
-  return fetch('api/entries/' + $entryID, {
-      method: 'delete'
-    })
-    .then(() => {
-      location.href = "/";
-  });
-}
-
 function getOneComment() {
-    let ID = document.getElementById('searchCommentID').value;
-    fetch('api/comments/' + ID)
+    let commentID = document.getElementById('searchCommentID').value;
+    fetch('api/comments/' + commentID)
     .then(res => res.json())
     .then(comments => {
       // Create H2 headertext
@@ -291,26 +281,22 @@ function getOneComment() {
       let commentDeleteBtn = document.createElement('button');
       commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
       commentDeleteBtn.id = comments.commentID;
-      commentDeleteBtn.setAttribute("onclick", deleteComment);
-      commentDeleteBtn.onclick = deleteComment; // Calls function to delete entry
-      document.getElementsByClassName("btn btn-danger").onclick = deleteComment;
+      commentDeleteBtn.addEventListener("click", () => { deleteComment(commentID); });
       let b = document.createTextNode('Delete');
       commentDeleteBtn.appendChild(b);
       document.getElementById('container6').appendChild(commentDeleteBtn);
     });
 }
 
-function deleteEntry(ID) {
-  
-  ID = this.id;
-  return fetch('api/entries/' + ID, {
+function deleteEntry(entryID) {
+
+  return fetch('api/entries/' + entryID, {
       method: 'delete'
     })
     .then(() => {
       location.href = "/";
   });
 }
-
 
 function editEntry(entryID) {
     let title = document.getElementById('editTitle').value;
@@ -328,13 +314,11 @@ function editEntry(entryID) {
      });
 }
 
-function deleteComment(ID) {
-  
-  ID = this.id;
-  return fetch('api/comments/' + ID, {
+function deleteComment(commentID) {
+
+  return fetch('api/comments/' + commentID, {
       method: 'delete'
       })
-      //.then(res => res.json());
       .then(() => {
       location.href = "/";
   });
@@ -366,7 +350,6 @@ function newEntry() {
   }
 
   function createNewEntryForm() {
-    
     // Create H2 headertext
     let header = document.createElement('h2');
     let h = document.createTextNode('New Entry');
@@ -499,7 +482,6 @@ function getAllEntriesByUserID() {
   fetch('api/users/' + ID + '/entries')
     .then(res => res.json())
     .then(entries => {
-      console.log(entries);
       // Create H2 headertext
       let header = document.createElement('h2');
       let h = document.createTextNode('Entries');
@@ -510,6 +492,7 @@ function getAllEntriesByUserID() {
         let title = entries[key].title;
         let content = entries[key].content;
         let createdAt = entries[key].createdAt;
+        let entryID = entries[key].entryID;
 
         if (entries.hasOwnProperty(key)) {
           let d = document.createElement('div');
@@ -534,14 +517,14 @@ function getAllEntriesByUserID() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
-          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID); });
           let t = document.createTextNode('Edit');
           entryEditBtn.appendChild(t);
           document.getElementById('container7').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
-          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container7').appendChild(commentBtn);
@@ -549,9 +532,7 @@ function getAllEntriesByUserID() {
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           entryDeleteBtn.id = entries[key].entryID;
-          entryDeleteBtn.addEventListener("click", () => {
-            deleteEntry();
-          });
+          entryDeleteBtn.addEventListener("click", () => { deleteEntry(entryID); });
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
           document.getElementById('container7').appendChild(entryDeleteBtn);
@@ -570,15 +551,13 @@ function editEntry(entryID) {
       },
       body: "title=" + title + "&content=" + content
     })
-    .then(res => res.json())
-    .then(obj => {
-      alert(JSON.stringify(obj));
-    });
-}
+    .then((res) => res.json());
+    }
 
-function allCommentsFromEntry() {
-  let ID = document.getElementById('allCommentsFromEntryID').value;
-    fetch('api/entries/' + ID + '/comments')
+
+function allCommentsFromEntry(commentID) {
+  let entryID = document.getElementById('allCommentsFromEntryID').value;
+    fetch('api/entries/' + entryID + '/comments')
       .then(res => res.json())
       .then(comments => {
         console.log(comments);
@@ -599,6 +578,14 @@ function allCommentsFromEntry() {
             p2.appendChild(t2);
             document.getElementById('container8').appendChild(p1);
             document.getElementById('container8').appendChild(p2);
+            // Create Delete Button
+            let commentDeleteBtn = document.createElement('button');
+            commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
+            commentDeleteBtn.id = comments.commentID;
+            commentDeleteBtn.addEventListener("click", () => { deleteComment(commentID); });
+            let b = document.createTextNode('Delete');
+            commentDeleteBtn.appendChild(b);
+            document.getElementById('container8').appendChild(commentDeleteBtn);
           }
         }
     });
@@ -647,9 +634,7 @@ function searchEntriesByTitle() {
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
-          commentBtn.addEventListener("click", () => {
-            createCommentForm(entryID, createdBy);
-          });
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container9').appendChild(commentBtn);
@@ -657,7 +642,7 @@ function searchEntriesByTitle() {
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
           entryDeleteBtn.id = entries[key].entryID;
-          entryDeleteBtn.addEventListener("click", () => { deleteEntry(); });
+          entryDeleteBtn.addEventListener("click", () => { deleteEntry(entryID); });
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
           document.getElementById('container9').appendChild(entryDeleteBtn);
