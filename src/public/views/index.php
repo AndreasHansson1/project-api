@@ -57,7 +57,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <button onclick="logout();" class="btn btn-danger"> Logout </button>
   </div>
 <div class="wrapper_all">
-<div class="wrapper">
+<div class="wrapper1">
 <div class="container">
   <form>
     <div class="form-group">
@@ -109,7 +109,7 @@ if (session_status() == PHP_SESSION_NONE) {
   </form>
 </div>
 </div>
-<div class="wrapper"> 
+<div class="wrapper2"> 
     <div id="container1"></div>
     <div id="container2"></div>
     <div id="container3"></div>

@@ -1,30 +1,47 @@
 body, html {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .wrapper_all {
   display: flex;
-  width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  
 }
 
-.wrapper {
+.wrapper1 {
+  text-align: center;
+  border-radius: 25px;
   padding: 2rem;
-  width: 35%;
   margin: 1rem auto;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+  width: 30%;
+}
+
+.wrapper2 {
+  text-align: center;
+  border-radius: 25px;
+  margin: 1rem auto;
+  padding: 2rem;
+  /*border-style: solid; */
+  width: 30%;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
 }
 
 .wrapper_form {
+  text-align: center;
   padding: 2rem;
-  width: 26%;
   margin: 1rem auto;
+  border-radius: 25px;
+  justify-content: space-around;
+  width: 30%;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
 }
 
-.div {
-  border-bottom: 1px solid black;
-  width: 100%;
+div_all {
+  
   margin: 1rem 0;
 }
 
@@ -42,5 +59,26 @@ body footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e9ecef;
+  
 }
+
+.form-group {
+  text-align: center;
+  padding: 1em;
+  margin: auto;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  border-style: 1px;
+  border-radius: 25px;
+}
+
+p {
+  font-size: 1em;
+  font-weight: 900;
+  color: black;
+}
+
+.jumbotron {
+  text-align: end;
+}
+
