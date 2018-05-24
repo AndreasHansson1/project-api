@@ -1,3 +1,10 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_set_cookie_params(3600);
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,8 +54,7 @@
 <?php else : ?>
   <div class="jumbotron">
     <h1>Project API</h1>
-    <input type="button" name="submit" value="Logout" class="btn btn-danger"
-      onclick="logout();" />
+    <button onclick="logout();" class="btn btn-danger"> Logout </button>
   </div>
 <div class="wrapper_all">
 <div class="wrapper1">
