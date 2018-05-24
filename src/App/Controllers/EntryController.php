@@ -102,10 +102,6 @@ class EntryController
         $editEntry->bindParam(':content', $edit['content']);
 
          $editEntry->execute();
-        //     // ':entryID' => $edit['entryID'],
-        //     // ':title'   => $edit['title'],
-        //     // ':content' => $edit['content']
-        //     ]);
 
         return [
           'entryID'   => $entryID,
