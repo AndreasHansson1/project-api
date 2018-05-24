@@ -121,14 +121,14 @@ function getAllEntries() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
-          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID); });
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
           document.getElementById('container2').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
-          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container2').appendChild(commentBtn);
@@ -350,7 +350,6 @@ function newEntry() {
   }
 
   function createNewEntryForm() {
-    
     // Create H2 headertext
     let header = document.createElement('h2');
     let h = document.createTextNode('New Entry');
@@ -428,7 +427,6 @@ function newEntry() {
    }
 
    function createCommentForm(entryID, createdBy) {
-     alert('function');
      // Create H2 headertext
      let header = document.createElement('h2');
      let h = document.createTextNode('Comment');
@@ -494,6 +492,7 @@ function getAllEntriesByUserID() {
         let title = entries[key].title;
         let content = entries[key].content;
         let createdAt = entries[key].createdAt;
+        let entryID = entries[key].entryID;
 
         if (entries.hasOwnProperty(key)) {
           let d = document.createElement('div');
@@ -518,14 +517,14 @@ function getAllEntriesByUserID() {
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
-          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID, createdBy); });
+          entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID); });
           let t = document.createTextNode('Edit');
           entryEditBtn.appendChild(t);
           document.getElementById('container7').appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
-          commentBtn.addEventListener("click", () => { createCommentForm(entryID, createdBy); });
+          commentBtn.addEventListener("click", () => { createCommentForm(entryID); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
           document.getElementById('container7').appendChild(commentBtn);
