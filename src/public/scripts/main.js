@@ -5,7 +5,9 @@
 // }
 
 // main();
-document.getElementById("registerForm").addEventListener("submit", newUser);
+if (document.getElementById("registerForm")){
+  document.getElementById("registerForm").addEventListener("submit", newUser);
+}
 
 function newUser(event) {
   event.preventDefault();
@@ -24,8 +26,9 @@ function newUser(event) {
       location.href = "/";
   });
 }
-
-document.getElementById("loginForm").addEventListener("submit", login);
+if (document.getElementById("loginForm")) {
+  document.getElementById("loginForm").addEventListener("submit", login);
+}
 
 function login(event) {
   event.preventDefault();
@@ -114,32 +117,34 @@ function getAllEntries() {
           p2.appendChild(t2);
           p3.appendChild(t3);
           p4.appendChild(t4);
-          document.getElementById('container2').appendChild(p1);
-          document.getElementById('container2').appendChild(p2);
-          document.getElementById('container2').appendChild(p3);
-          document.getElementById('container2').appendChild(p4);
+          let wrapper = document.createElement('div');
+          wrapper.appendChild(p1);
+          wrapper.appendChild(p2);
+          wrapper.appendChild(p3);
+          wrapper.appendChild(p4);     
           // Create Edit Button
           let entryEditBtn = document.createElement('button');
           entryEditBtn.setAttribute("class", "btn btn-warning btn-sm");
           entryEditBtn.addEventListener('click', () => { createEditEntryForm(entryID); });
           let t = document.createTextNode('Edit'); 
           entryEditBtn.appendChild(t); 
-          document.getElementById('container2').appendChild(entryEditBtn);
+          wrapper.appendChild(entryEditBtn);
           // Create Comment Button
           let commentBtn = document.createElement('button');
           commentBtn.setAttribute("class", "btn btn-info btn-sm");
           commentBtn.addEventListener("click", () => { createCommentForm(entryID); });
           let c = document.createTextNode('Comment');
           commentBtn.appendChild(c);
-          document.getElementById('container2').appendChild(commentBtn);
+          wrapper.appendChild(commentBtn);
           // Create Delete Button
           let entryDeleteBtn = document.createElement('button');
           entryDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
-          entryDeleteBtn.id = entries[key].entryID;
+          wrapper.id = entries[key].entryID;
           entryDeleteBtn.addEventListener("click", () => { deleteEntry(entryID); });
           let b = document.createTextNode('Delete');
           entryDeleteBtn.appendChild(b);
-          document.getElementById('container2').appendChild(entryDeleteBtn);
+          wrapper.appendChild(entryDeleteBtn);
+          document.getElementById('container2').appendChild(wrapper);
         }
       }
     });
@@ -289,12 +294,11 @@ function getOneComment() {
 }
 
 function deleteEntry(entryID) {
-
   return fetch('api/entries/' + entryID, {
       method: 'delete'
     })
     .then(() => {
-      location.href = "/";
+      document.getElementById(entryID).remove();
   });
 }
 
@@ -652,7 +656,9 @@ function searchEntriesByTitle() {
 }
 
 function logout() {
-  fetch('logout/')
-  .then(() => { location.href = "/" ;}
-  );
+  fetch('logout', {
+    credentials: 'include'
+  })
+    .then(res => res.text())
+    .then(() => { location.href = "/"; });
 }

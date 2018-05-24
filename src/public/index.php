@@ -65,8 +65,9 @@ $app->post('/login', function ($request, $response, $args) {
  * Basic implementation, implement a better response
  */
 $app->get('/logout', function ($request, $response, $args) {
+    unset($_SESSION["loggedIn"]);
     session_destroy();
-    return $response->withJson('Success');
+    return $response->withRedirect('/');
 });
 // GROUP UNDER /API/
 $app->group('/api', function () use ($app) {
