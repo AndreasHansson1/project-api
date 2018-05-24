@@ -118,7 +118,7 @@ class EntryController
     public function allEntriesByUserID($id)
    {
        $allEntriesByUserID = $this->db->prepare(
-       'SELECT entries.title, entries.content, entries.createdBy, entries.entryID
+       'SELECT entries.title, entries.content, entries.createdBy, entries.entryID, entries.createdAt
        FROM entries
        INNER JOIN users ON users.userID = entries.createdBy
        WHERE entries.createdBy = :createdBy');
