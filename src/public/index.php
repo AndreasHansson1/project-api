@@ -68,13 +68,7 @@ $app->get('/logout', function ($request, $response, $args) {
     session_destroy();
     return $response->withJson('Success');
 });
-
-
-/**
- * The group is used to group everything connected to the API under '/api'
- * This was done so that we can check if the user is authed when calling '/api'
- * but we don't have to check for auth when calling '/signin'
- */
+// GROUP UNDER /API/
 $app->group('/api', function () use ($app) {
 
     // GET ALL USERS -- localhost:3000/api/users
