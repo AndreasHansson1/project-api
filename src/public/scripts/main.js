@@ -104,6 +104,7 @@ function getAllEntries() {
         let content = entries[key].content;
         let createdAt = entries[key].createdAt;
         let entryID = entries[key].entryID;
+
         if (entries.hasOwnProperty(key)) {
           let p1 = document.createElement('p');
           let p2 = document.createElement('p');
@@ -170,17 +171,19 @@ function getAllComments() {
           let t1 = document.createTextNode('Content: ' + content);
           let t2 = document.createTextNode('Created By: ' + createdBy);
           p1.appendChild(t1);
-          p2.appendChild(t2); 
-          document.getElementById('container3').appendChild(p1);
-          document.getElementById('container3').appendChild(p2);
+          p2.appendChild(t2);
+          let wrapper = document.createElement('div');
+          wrapper.appendChild(p1);
+          wrapper.appendChild(p2);
           // Create Delete Button
           let commentDeleteBtn = document.createElement('button');
           commentDeleteBtn.setAttribute("class", "btn btn-danger btn-sm");
-          commentDeleteBtn.id = comments[key].commentID;
+          wrapper.id = comments[key].commentID;
           commentDeleteBtn.addEventListener("click", () => { deleteComment(commentID); });
           let b = document.createTextNode('Delete');
           commentDeleteBtn.appendChild(b);
-          document.getElementById('container3').appendChild(commentDeleteBtn);
+          wrapper.appendChild(commentDeleteBtn);
+          document.getElementById('container3').appendChild(wrapper);
         }
     }
   });
@@ -323,8 +326,8 @@ function deleteComment(commentID) {
   return fetch('api/comments/' + commentID, {
       method: 'delete'
       })
-      .then(() => {
-      location.href = "/";
+      .then(() => { 
+        document.getElementById(commentID).remove();
   });
 }
 
