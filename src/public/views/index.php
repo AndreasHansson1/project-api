@@ -24,8 +24,8 @@ if (session_status() == PHP_SESSION_NONE) {
 </div>
 <div class="container">
    <br>
-   <h2>Sign Up</h2>
    <form id="registerForm">
+    <h2>Sign Up</h2>
        <div class="form-group">
            <label for="username">Username</label>
            <input class="form-control" id="newUsername" type="text" name="username">
@@ -38,8 +38,9 @@ if (session_status() == PHP_SESSION_NONE) {
    </form>
    <br><br>
 
-   <h2>Login</h2>
+   
    <form id="loginForm">
+     <h2>Login</h2>
        <div class="form-group">
            <label for="username">Username</label>
            <input class="form-control" id="loginUsername" type="text" name="username">
